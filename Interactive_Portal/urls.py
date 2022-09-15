@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from login.views import loginaction
 from signup.views import signaction
+from Interactive_Portal.views import home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',loginaction),
     path('signup/',signaction),
+    path('',home),
+
 ]
