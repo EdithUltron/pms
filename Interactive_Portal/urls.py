@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/',loginaction),
     path('signup/',signaction),
     path('',home),
-
+    path('',loginaction),# path('',login_styles) --> due to same action changed.
+    path('',signaction),
 ]
