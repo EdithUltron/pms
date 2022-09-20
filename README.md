@@ -6,19 +6,19 @@
 **2.** Clone the repository:
 
 ```bash
-git clone https://github.com/<your-github-username>/CodingEasy
+git clone https://github.com/<your-github-username>/pms
 ```
 
 **3.** Navigate to the new project directory:
 
 ```bash
-cd CodingEasy
+cd pms
 ```
 
 **4.** Set upstream command:
 
 ```bash
-git remote add upstream https://github.com/arpit456jain/CodingEasy.git
+git remote add upstream https://github.com/EdithUltron/pms.git
 ```
 
 **5.** Create a new branch:
