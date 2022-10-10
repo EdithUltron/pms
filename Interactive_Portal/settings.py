@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles','signup.apps.SignupConfig','login.apps.LoginConfig',
+    'django.contrib.staticfiles',
+    'signup.apps.SignupConfig',
+    'login.apps.LoginConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +78,12 @@ WSGI_APPLICATION = 'Interactive_Portal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ddrnmmjhk8n5jo',
+        'USER':'qewlgtgjnwgwjx',
+        'PASSWORD':'19d0ac135880c1f6ffe59600c0cb5c48522e6ead4167d7e036d71421d45089c1',
+        'HOST':'ec2-52-70-45-163.compute-1.amazonaws.com',
+        'PORT':'5432'
     }
 }
 
