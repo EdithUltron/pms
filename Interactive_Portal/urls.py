@@ -21,7 +21,7 @@ from signup.views import signaction
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',loginaction),
-    path('signup/',signaction),
+    path('login/',loginaction,name="login"),
+    path('signup/',signaction,name="signup"),
     path('',home),
 ]
