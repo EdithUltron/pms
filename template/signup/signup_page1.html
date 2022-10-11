@@ -12,38 +12,70 @@
     <link rel="stylesheet" href="{% static 'login/css/login_styles.css' %}">
 </head>
 <body>
-    <section class="h-100 gradient-form" style="background-color: #eee;">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-xl-10">
-                    <div class="card rounded-3 text-black">
+    <section  style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-xl-10 pl-0 pr-0">
+                    <div class="card rounded-3">
                         <div class="row g-0">
                             <div class="col-lg-6">
-                                <div class="card-body p-md-5 mx-md-4"> <!--style="margin:200px auto" -->
-                                    <div class="center">
-                                        <img src="{% static 'login/logo.png' %}" class="img-fluid" alt="Responsive image">
-                                    </div>
+                              
+                                <h1 class="mt-5 pb-1 gradient-text text-center"><b>Sign Up</b></h1>
+                             
+                                <div class="card-body p-md-5 mx-md-4 text-center" style="margin:100px auto;"> <!--style="margin:200px auto" -->
+                                    <!-- <div class="center">                                       -->
+                                        <img src="{% static 'login/logo.png' %}" class="img-fluid" alt="Responsive image" style="width:85%">
+                                    <!-- </div>                                   -->
                                 </div>
                             </div>
-                            <div class="col-lg-6 d-flex align-items-center gradient-design">
-                                <div class="card-body p-md-5 mx-md-4">
+                            <div class="col-lg-6 d-flex align-items-center gradient-design text-black">
+                                <div class="card-body p-md-5 mx-md-4">                                
                                   <form>
                                     <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example11">Username</label>
-                                      <input type="text" id="form2Example11" class="form-control"
-                                        placeholder="Roll Number" />
+                                    <label class="form-label">Full Name</label>
+                                      <input type="text" name="full_name" class="form-control"
+                                        placeholder="Full Name" />
                                     </div>
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form2Example22">Password</label>
-                                      <input type="password" id="form2Example22" class="form-control" placeholder="Password"/>
-                                    </div>
+                                      <label class="form-label">Roll Number</label>
+                                        <input type="text" name="Roll_num" class="form-control"
+                                          placeholder="Roll Number" />
+                                      </div>
+                                      <div class="form-outline mb-4">
+                                        <label class="form-label">Email</label>
+                                          <input type="email" name="email" class="form-control"
+                                            placeholder="email@gmail.com" />
+                                        </div>                                       
+                                        <div class="form-group">
+                                          <label>Department</label>
+                                          <select class="form-control">
+                                            <option value="cse">CSE</option>
+                                            <option value="ece">ECE</option>
+                                            <option value="eee">EEE</option>
+                                            <option value="mech">MECH</option>
+                                            <option value="civil">CIVIL</option>
+                                            <option value="met">MET</option>
+                                            <option value="it">IT</option>
+                                          </select>
+                                        </div>
+                                          <div class="form-outline mb-4">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="tel" name="phn_num" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
+                                          </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" >Password</label>
+                                      <input type="password" name="passwd" class="form-control" placeholder="Password"/>
+                                    </div> 
+                                    <div class="form-outline mb-4">
+                                      <label class="form-label" >Confirm Password</label>
+                                    <input type="password" name="cpasswd" class="form-control" placeholder="Confirm Password"/>
+                                  </div> 
                                     <div class="text-center pt-1 mb-5 pb-1">
-                                      <button class="btn btn-primary btn-block fa-lg gradient-design mb-3 btn-outline-light" type="button">Log
-                                        in</button>       
-                                    </div>   
+                                      <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="button">Register</button>       
+                                    </div>                             
                                     <div class="d-flex align-items-center justify-content-center pb-4">
-                                      <p class="mb-0 me-2">Don't have an account?</p>&nbsp;&nbsp;
-                                      <button type="button" class="btn btn-outline-danger" style="color:white">Create new</button>
+                                      <p class="mb-0 me-2">Already have an account? </p>&nbsp;&nbsp;
+                                      <button type="button" class="btn btn-outline-danger" style="color:white">Login here</button>
                                     </div>    
                                   </form>      
                                 </div>

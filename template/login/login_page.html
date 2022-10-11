@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="{% static 'login/css/login_styles.css' %}">
 </head>
 <body>
-    <section class="h-100 gradient-form" style="background-color: #eee;">
-        <div class="container py-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+          <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-xl-10 pl-0 pr-0">
               <div class="card rounded-3 text-black">
                 <div class="row g-0">
                   <div class="col-lg-6">
@@ -27,6 +27,7 @@
                       </div>
                       <form action="{% url 'login' %}" method="POST">{% csrf_token %}
                         <div class="form-outline mb-4">
+
                         <label class="form-label" for="form2Example11">Username</label>
                           <input type="email" id="form2Example11" class="form-control" name="email"
                             placeholder="email" required/>
@@ -34,6 +35,7 @@
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example22">Password</label>
                           <input  minlength="8" pattern=".{8,}" name="password" type="password" id="form2Example22" class="form-control validate" placeholder="Password" required title="8 characters minimum"/>
+
                         </div>
                         <div class="text-center pt-1 mb-5 pb-1">
                           <button class="btn btn-primary btn-block fa-lg gradient-design mb-3" type="submit">Log
@@ -41,7 +43,7 @@
                           <a class="text-muted" href="#!">Forgot password?</a>
                         </div>   
                         <div class="d-flex align-items-center justify-content-center pb-4">
-                          <p class="mb-0 me-2">Don't have an account?</p>
+                          <p class="mb-0 me-2">Don't have an account?</p>&nbsp;&nbsp;
                           <button type="button" class="btn btn-outline-danger">Create new</button>
                         </div>    
                       </form>      
