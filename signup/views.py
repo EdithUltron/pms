@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Register,RegisterForm
 
 def signaction(request):
-    return render(request,'signup/signup_page.html')
+
 
     if request.method =="POST" :
         email=request.POST['email']
@@ -27,3 +27,4 @@ def signaction(request):
         login=RegisterForm()
 
     return render(request,'signup/signup_page1.html')
+
