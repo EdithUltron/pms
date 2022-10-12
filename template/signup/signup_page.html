@@ -30,25 +30,27 @@
                             </div>
                             <div class="col-lg-6 d-flex align-items-center gradient-design text-black">
                                 <div class="card-body p-md-5 mx-md-4">                                
-                                  <form>
+                                  <form method="POST" action="{% url 'signup' %}">{% csrf_token %}
                                     <div class="form-outline mb-4">
                                     <label class="form-label">Full Name</label>
-                                      <input type="text" name="full_name" class="form-control"
+                                      <input {% if form.fullname %} value={{form.fullname}} {% endif %} type="text" name="fullname" class="form-control"
                                         placeholder="Full Name" />
                                     </div>
                                     <div class="form-outline mb-4">
                                       <label class="form-label">Roll Number</label>
-                                        <input type="text" name="Roll_num" class="form-control"
+                                        <input {% if form.roll %} value={{form.roll}} {% endif %} type="text" name="roll" class="form-control"
                                           placeholder="Roll Number" />
                                       </div>
                                       <div class="form-outline mb-4">
                                         <label class="form-label">Email</label>
-                                          <input type="email" name="email" class="form-control"
-                                            placeholder="email@gmail.com" />
+
+                                        <input {% if form.email %} value={{form.email}} {% endif %} type="email" name="email" class="form-control"
+                                          placeholder="email@gmail.com" />
+
                                         </div>                                       
                                         <div class="form-group">
                                           <label>Department</label>
-                                          <select class="form-control">
+                                          <select class="form-control" name="department" {% if form.department %} value={{form.department}} {% endif %}>
                                             <option value="cse">CSE</option>
                                             <option value="ece">ECE</option>
                                             <option value="eee">EEE</option>
@@ -60,24 +62,32 @@
                                         </div>
                                           <div class="form-outline mb-4">
                                             <label class="form-label">Phone Number</label>
-                                            <input type="tel" name="phn_num" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
+                                            <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
                                           </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" >Password</label>
-                                      <input type="password" name="passwd" class="form-control" placeholder="Password"/>
+                                      <input type="password" name="password" class="form-control" placeholder="Password"/>
                                     </div> 
                                     <div class="form-outline mb-4">
                                       <label class="form-label" >Confirm Password</label>
-                                    <input type="password" name="cpasswd" class="form-control" placeholder="Confirm Password"/>
+                                    <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password"/>
                                   </div> 
                                     <div class="text-center pt-1 mb-5 pb-1">
-                                      <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="button">Register</button>       
-                                    </div>                             
+                                      <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="submit">Register</button>       
+                                    </div>
+                                    {% if messages %}
+                                    <ul class="messages d-flex flex-column justify-content-center align-items-center">
+                                      {% for message in messages %}
+                                      <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
+                                      {% endfor %}
+                                    </ul>
+                                    {% endif %}
                                     <div class="d-flex align-items-center justify-content-center pb-4">
                                       <p class="mb-0 me-2">Already have an account? </p>&nbsp;&nbsp;
                                       <button type="button" class="btn btn-outline-danger" style="color:white">Login here</button>
                                     </div>    
-                                  </form>      
+                                  </form>  
+                                  
                                 </div>
                               </div>
                         </div>
