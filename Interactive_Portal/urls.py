@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from home.views import home
+from home.views import highereducationaction, home, placementaction, profileaction
 from login.views import loginaction
 from signup.views import signaction
 
@@ -23,5 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',loginaction,name="login"),
     path('signup/',signaction,name="signup"),
-    path('',home),
+    path('',home,name="home"),
+    path('profile/',profileaction,name="profile"),
+    path('placement/',placementaction,name="placement"),
+    path('highereducation/',highereducationaction,name="highereducation"),
 ]

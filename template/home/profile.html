@@ -12,15 +12,18 @@
     <link rel="stylesheet" href="{% static 'home/css/home_styles.css' %}">
 </head>
 <body>
-   <div>
+    <div>
         <div class="p1">
-            <h1>Heading</h1>
+            <h1>Profile</h1>
         </div>
-        <div class="p2">
-            <button class="btn btn-danger Profile col-lg-3">Profile</button>
-            <button class="btn btn-danger Edit col-lg-3"><a href="{% url 'profile' %}">Edit</a> </button>
-            <button class="btn btn-danger logout col-lg-3">Logout</button>
+        <div class="row d-flex justify-content-center align-items-center">
+            <a class="btn btn-primary" href="{%url 'placement'%}" role="button">Placement</a>
+            <a class="btn btn-primary" href="{%url 'highereducation'%}" role="button">Higher Education</a>
+            <button>List of Entrepreneur Details</button>
+            <button>Details of Student Publications</button>
+            <button>Curricular activities/sports/cultural activities/extra co-curricular activities</button>
+            <button>Scholarship</button>
+            <button>Skill enhance</button>
         </div>
-   </div>
+    </div>
 </body>
-</html>
