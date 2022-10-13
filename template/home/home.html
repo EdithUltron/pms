@@ -1,12 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <!-- <link rel="stylesheet" href="static/login_styles.css"> -->
     <title>Home</title>
+    <link rel="stylesheet" href="{% static 'home/css/home_styles.css' %}">
 </head>
 <body>
-    Home
+   <div>
+        <div class="p1">
+            <h1>Heading</h1>
+        </div>
+        <div class="p2">
+            <button class="btn btn-danger Profile col-lg-3">Profile</button>
+            <button class="btn btn-danger Edit col-lg-3">Edit</button>
+            <button class="btn btn-danger X col-lg-3">X</button>
+        </div>
+   </div>
 </body>
 </html>
