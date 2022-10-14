@@ -1,10 +1,8 @@
 from django.shortcuts import render
 
 def home(request):
-    context={}
-    sys=request.POST.get('sys',None)
-    context['sys']=sys
-    return render(request,'home/home.html',context)
+    name=request.session.get("name")
+    return render(request,'home/home.html',{"form":{"name":name}})
 
 def profileaction(request):
     context={}

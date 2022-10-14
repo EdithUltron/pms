@@ -7,6 +7,12 @@ from .models import Register,RegisterForm
 from login.models import Login
 
 def signaction(request):
+
+    islog=request.session.get("islogin",False)
+    if islog:
+        logging.error("Logged in already")
+        return redirect("/")
+
     if request.method =="POST" :
         if request.POST['password'] == request.POST['cpassword']:
             email=request.POST['email']
@@ -38,7 +44,7 @@ def signaction(request):
                     log.save()
                     messages.success(request,f"Email registered")
                     logging.error("SignUp Successful")
-                    return redirect("/login/",{'form':register.data})
+                    return render(request,'login/login_page.html',{'form':log})
                 else:
                     logging.error("not valid")
                     logging.error(register.is_valid())

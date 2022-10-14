@@ -15,8 +15,12 @@ class Login(models.Model):
         self.email=email
         self.password=password
 
+    def get_data(self):
+        data=self.register.get_data()
+        return {"email":self.email,"data":data}
+
     def __str__(self) -> str:
-        return self.email+" : "+self.password
+        return self.email
 
 
 

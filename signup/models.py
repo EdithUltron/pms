@@ -26,6 +26,9 @@ class Register(models.Model):
     def get_id(self):
         return self.id
 
+    def get_data(self):
+        return {"fullname":self.fullname,"roll":self.roll,"phone":self.phone,"department":self.department}
+
     def __str__(self):
         return self.fullname
 

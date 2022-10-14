@@ -1,14 +1,24 @@
 {% extends "base/base.html"%}
 {% block title %}Home{% endblock title %}
+{% load static %}
 {% block content %}
 <div>
     <div class="p1">
         <h1>Heading</h1>
     </div>
     <div class="p2">
-        <a class="btn btn-danger Profile col-lg-3" role="button">Profile</a>
-        <a class="btn btn-danger Edit col-lg-3" href="{% url 'profile' %}" role="button">Details</a>
-        <button class="btn btn-danger logout col-lg-3">Logout</button>
+        <h1>Hello {{ form.name }}</h1>
+        <button class="btn btn-danger Profile col-lg-3">Profile</button>
+        <button class="btn btn-danger Edit col-lg-3"><a href="{% url 'profile' %}">Edit</a> </button>
+        <a href="{% url 'logout' %} " <button class="btn btn-danger logout col-lg-3">Logout</button></a>
     </div>
+    {% if messages %}
+    <ul class="messages d-flex flex-column justify-content-center align-items-center">
+        {% for message in messages %}
+        <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 {% endblock content %}
+

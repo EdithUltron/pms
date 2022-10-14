@@ -37,53 +37,54 @@
                                     <input {% if form.email %} value={{form.email}} {% endif %} type="email" name="email" class="form-control"
                                       placeholder="email@gmail.com" />
 
-                                    </div>                                       
-                                    <div class="form-group">
-                                      <label>Department</label>
-                                      <select class="form-control" name="department" {% if form.department %} value={{form.department}} {% endif %}>
-                                        <option value="cse">CSE</option>
-                                        <option value="ece">ECE</option>
-                                        <option value="eee">EEE</option>
-                                        <option value="mech">MECH</option>
-                                        <option value="civil">CIVIL</option>
-                                        <option value="met">MET</option>
-                                        <option value="it">IT</option>
-                                      </select>
+                                        </div>                                       
+                                        <div class="form-group">
+                                          <label>Department</label>
+                                          <select class="form-control" name="department" {% if form.department %} value={{form.department}} {% endif %}>
+                                            <option value="cse">CSE</option>
+                                            <option value="ece">ECE</option>
+                                            <option value="eee">EEE</option>
+                                            <option value="mech">MECH</option>
+                                            <option value="civil">CIVIL</option>
+                                            <option value="met">MET</option>
+                                            <option value="it">IT</option>
+                                          </select>
+                                        </div>
+                                          <div class="form-outline mb-4">
+                                            <label class="form-label">Phone Number</label>
+                                            <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
+                                          </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" >Password</label>
+                                      <input type="password" name="password" class="form-control" placeholder="Password"/>
+                                    </div> 
+                                    <div class="form-outline mb-4">
+                                      <label class="form-label" >Confirm Password</label>
+                                    <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password"/>
+                                  </div> 
+                                    <div class="text-center pt-1 mb-5 pb-1">
+                                      <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="submit">Register</button>       
                                     </div>
-                                      <div class="form-outline mb-4">
-                                        <label class="form-label">Phone Number</label>
-                                        <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
-                                      </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" >Password</label>
-                                  <input type="password" name="password" class="form-control" placeholder="Password"/>
-                                </div> 
-                                <div class="form-outline mb-4">
-                                  <label class="form-label" >Confirm Password</label>
-                                <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password"/>
-                              </div> 
-                                <div class="text-center pt-1 mb-5 pb-1">
-                                  <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="submit">Register</button>       
+                                    {% if messages %}
+                                    <ul class="messages d-flex flex-column justify-content-center align-items-center">
+                                      {% for message in messages %}
+                                      <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
+                                      {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                      <p class="mb-0 me-2">Already have an account? </p>&nbsp;&nbsp;
+                                      <button type="button" class="btn btn-outline-danger" style="color:white">Login here</button>
+                                    </div>    
+                                  </form>  
+                                  
                                 </div>
-                                {% if messages %}
-                                <ul class="messages d-flex flex-column justify-content-center align-items-center">
-                                  {% for message in messages %}
-                                  <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
-                                  {% endfor %}
-                                </ul>
-                                {% endif %}
-                                <div class="d-flex align-items-center justify-content-center pb-4">
-                                  <p class="mb-0 me-2">Already have an account? </p>&nbsp;&nbsp;
-                                  <button type="button" class="btn btn-outline-danger" style="color:white">Login here</button>
-                                </div>    
-                              </form>  
-                              
-                            </div>
-                          </div>
+                              </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-{% endblock content %}
+    </section>
+</body>
+</html>

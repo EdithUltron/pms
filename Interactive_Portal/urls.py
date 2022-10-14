@@ -17,11 +17,15 @@ from django.contrib import admin
 from django.urls import path,include
 from home.views import detailsaction, highereducationaction, home, placementaction, profileaction
 from login.views import loginaction
+
+from home.views import highereducationaction, home, placementaction, profileaction
+from login.views import loginaction,logoutaction
 from signup.views import signaction
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',loginaction,name="login"),
+    path('logout/',logoutaction,name="logout"),
     path('signup/',signaction,name="signup"),
     path('',home,name="home"),
     path('profile/',profileaction,name="profile"),
