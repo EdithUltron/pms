@@ -24,23 +24,23 @@
                                 <div class="form-outline mb-4">
                                 <label class="form-label">Full Name</label>
                                   <input {% if form.fullname %} value={{form.fullname}} {% endif %} type="text" name="fullname" class="form-control"
-                                    placeholder="Full Name" />
+                                    placeholder="Full Name" required/>
                                 </div>
                                 <div class="form-outline mb-4">
                                   <label class="form-label">Roll Number</label>
                                     <input {% if form.roll %} value={{form.roll}} {% endif %} type="text" name="roll" class="form-control"
-                                      placeholder="Roll Number" />
+                                      placeholder="Roll Number" required/>
                                   </div>
                                   <div class="form-outline mb-4">
                                     <label class="form-label">Email</label>
 
                                     <input {% if form.email %} value={{form.email}} {% endif %} type="email" name="email" class="form-control"
-                                      placeholder="email@gmail.com" />
+                                      placeholder="email@gmail.com" required/>
 
                                         </div>                                       
                                         <div class="form-group">
                                           <label>Department</label>
-                                          <select class="form-control" name="department" {% if form.department %} value={{form.department}} {% endif %}>
+                                          <select class="form-control" name="department" {% if form.department %} value={{form.department}} {% endif %} required>
                                             <option value="cse">CSE</option>
                                             <option value="ece">ECE</option>
                                             <option value="eee">EEE</option>
@@ -52,15 +52,15 @@
                                         </div>
                                           <div class="form-outline mb-4">
                                             <label class="form-label">Phone Number</label>
-                                            <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
+                                            <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" required/> 
                                           </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" >Password</label>
-                                      <input type="password" name="password" class="form-control" placeholder="Password"/>
+                                      <input type="password" name="password" class="form-control" placeholder="Password" required/>
                                     </div> 
                                     <div class="form-outline mb-4">
                                       <label class="form-label" >Confirm Password</label>
-                                    <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password"/>
+                                    <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required/>
                                   </div> 
                                     <div class="text-center pt-1 mb-5 pb-1">
                                       <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="submit">Register</button>       
@@ -84,6 +84,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+    </div>
+</section>
 {% endblock content %}
