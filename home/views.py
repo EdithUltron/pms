@@ -5,8 +5,8 @@ def home(request):
     name=request.session.get("name")
     islogin=request.session.get("islogin")
     if not islogin:
-        redirect("/login/")
-    logging.error(name)
+        return redirect("/login/")
+    logging.error(not islogin)
     return render(request,'home/home.html',{"form":{"name":name,"islogin":islogin}})
 
 def profileaction(request):
