@@ -2,8 +2,11 @@
 {% block title %} Profile {% endblock title %}
 {% block content %}
 <div>
-    <div class="p1">
-        <h1>Profile</h1>
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <a class="btn btn-white" name="sys" href="{%url 'home'%}" role="button">Back</a> 
+            <h1 class="p1">Profile</h1>
+        </div>   
     </div>
     <div class="row d-flex justify-content-center align-items-center">
         {% csrf_token %}
