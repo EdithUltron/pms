@@ -1,8 +1,9 @@
 from django.shortcuts import render
+import logging
 
 def home(request):
-    
     name=request.session.get("name")
+    logging.error(name)
     return render(request,'home/home.html',{"form":{"name":name}})
 
 def profileaction(request):

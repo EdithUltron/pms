@@ -33,7 +33,7 @@ def loginaction(request):
                     data=det.get_data()
                     request.session["name"]=data["data"]["fullname"]
                     logging.error(messages)
-                    return render(request,'home/home.html')
+                    return redirect("/")
                 else:
                     messages.error(request,"Incorrect Password")
         else:
