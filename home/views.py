@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import logging
 
 def home(request):
     name=request.session.get("name")
+    islogin=request.session.get("islogin")
+    if not islogin:
+        redirect("/login/")
     logging.error(name)
-    return render(request,'home/home.html',{"form":{"name":name}})
+    return render(request,'home/home.html',{"form":{"name":name,"islogin":islogin}})
 
 def profileaction(request):
     context={}
