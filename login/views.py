@@ -18,6 +18,7 @@ def loginaction(request):
 
     if request.method =="POST" :
         email=request.POST['email']
+        login=Login(request.POST)  
         # password=make_password(request.POST['password'])
         for det in Login.objects.all():
 
@@ -25,19 +26,18 @@ def loginaction(request):
             if email==det.email:
                 password=det.password
                 if check_password(request.POST["password"],password):   
-                    # login=Login(request.POST)  
                     messages.success(request,f"Login Successful")
                     logging.error("Login Successful")
                     request.session["islogin"]=True
                     request.session["id"]=det.id
                     data=det.get_data()
                     request.session["name"]=data["data"]["fullname"]
-                    logging.error(request.session["name"])
+                    logging.error(messages)
                     return render(request,'home/home.html')
                 else:
                     messages.error(request,"Incorrect Password")
-            else:
-                messages.error(request,f"Email {email} does not exist, Do signup first")
+        else:
+            messages.error(request,f"Email {email} does not exist, Do signup first")
     else:
         login=loginForm()
 
