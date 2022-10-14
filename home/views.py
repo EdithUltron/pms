@@ -1,13 +1,31 @@
 from django.shortcuts import render
 
 def home(request):
-    return render(request,'home/home.html')
+    context={}
+    sys=request.POST.get('sys',None)
+    context['sys']=sys
+    return render(request,'home/home.html',context)
 
 def profileaction(request):
-    return render(request,'home/profile.html')
+    context={}
+    sys=request.POST.get('sys',None)
+    context['sys']=sys
+    return render(request,'home/profile.html',context)
 
 def placementaction(request):
-    return render(request,'home/placement.html')
+    context={}
+    sys=request.POST.get('sys',None)
+    context['sys']=sys
+    return render(request,'home/placement.html',context)
 
 def highereducationaction(request):
-    return render(request,'home/highereducation.html')
+    context={}
+    sys=request.POST.get('sys',None)
+    context['sys']=sys
+    return render(request,'home/highereducation.html',context)
+
+def detailsaction(request):
+    context={}
+    sys=request.POST.get('sys',None)
+    context['sys']=sys
+    return render(request,'home/details.html',context)

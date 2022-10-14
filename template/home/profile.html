@@ -1,29 +1,20 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-     <!-- <link rel="stylesheet" href="static/login_styles.css"> -->
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'home/css/home_styles.css' %}">
-</head>
-<body>
-    <div>
-        <div class="p1">
-            <h1>Profile</h1>
-        </div>
-        <div class="row d-flex justify-content-center align-items-center">
-            <a class="btn btn-primary" href="{%url 'placement'%}" role="button">Placement</a>
-            <a class="btn btn-primary" href="{%url 'highereducation'%}" role="button">Higher Education</a>
-            <button>List of Entrepreneur Details</button>
-            <button>Details of Student Publications</button>
-            <button>Curricular activities/sports/cultural activities/extra co-curricular activities</button>
-            <button>Scholarship</button>
-            <button>Skill enhance</button>
-        </div>
+{% extends "base/base.html" %}
+{% block title %} Profile {% endblock title %}
+{% block content %}
+<div>
+    <div class="p1">
+        <h1>Profile</h1>
     </div>
-</body>
+    <div class="row d-flex justify-content-center align-items-center">
+        {% csrf_token %}
+        <a class="btn btn-primary" name="sys" href="{%url 'details'%}" role="button">Details</a>
+        <a class="btn btn-primary" name="sys" href="{%url 'placement'%}" role="button">Placement</a>
+        <a class="btn btn-primary" name="sys" href="{%url 'highereducation' %}" role="button">Higher Education</a>
+        <button>List of Entrepreneur Details</button>
+        <button>Details of Student Publications</button>
+        <button>Curricular activities/sports/cultural activities/extra co-curricular activities</button>
+        <button>Scholarship</button>
+        <button>Skill enhance</button>
+    </div>
+</div>
+{% endblock content %}
