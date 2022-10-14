@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 def home(request):
+    
     name=request.session.get("name")
     return render(request,'home/home.html',{"form":{"name":name}})
 
