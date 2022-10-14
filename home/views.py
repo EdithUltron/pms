@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from login.models import loginForm,Login
 import logging
 
 def home(request):
@@ -29,6 +30,7 @@ def highereducationaction(request):
 
 def detailsaction(request):
     context={}
-    sys=request.POST.get('sys',None)
-    context['sys']=sys
-    return render(request,'home/details.html',context)
+    id=request.session.get("id")
+    context=Login.objects.get(id=id).get_data()["data"]
+    logging.error(context)
+    return render(request,'home/details.html',{"form":context})
