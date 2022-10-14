@@ -9,8 +9,8 @@
     <div class="p2">
         <h1>Hello {{ form.name }}</h1>
         <button class="btn btn-danger Profile col-lg-3">Profile</button>
-        <button class="btn btn-danger Edit col-lg-3"><a href="{% url 'profile' %}">Edit</a> </button>
-        <a href="{% url 'logout' %} " <button class="btn btn-danger logout col-lg-3">Logout</button></a>
+        <a href="{% url 'profileedit' %} "> <button class="btn btn-danger Edit col-lg-3">Edit</button></a>
+        <a href="{% url 'logout' %} "> <button class="btn btn-danger logout col-lg-3">Logout</button></a>
     </div>
     {% if messages %}
     <ul class="messages d-flex flex-column justify-content-center align-items-center">
