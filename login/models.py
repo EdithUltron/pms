@@ -1,15 +1,17 @@
-from dataclasses import fields
-from enum import unique
-from pyexpat import model
 from django import forms
 from django.db import models
 from signup.models import Register
-# from django import forms
+
 # Create your models here.
 class Login(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE)
     email=models.EmailField(max_length=150,unique=True,null=False)
     password=models.CharField(max_length=200,null=False)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.email=self.register.email
+        self.password=self.register.password
 
     def insert(self,email,password):
         self.email=email
@@ -17,6 +19,10 @@ class Login(models.Model):
 
     def get_data(self):
         data=self.register.get_data()
+        return {"email":self.email,"data":data}
+
+    def getDetails(self):
+        data=self.register.getDetails()
         return {"email":self.email,"data":data}
 
     def __str__(self) -> str:

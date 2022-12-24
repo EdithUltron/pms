@@ -8,16 +8,53 @@
             <h1 class="p1">Profile</h1>
         </div>   
     </div>
-    <div class="row d-flex justify-content-center align-items-center">
-        {% csrf_token %}
-        <a class="btn btn-primary" name="sys" href="{%url 'details'%}" role="button">Details</a>
-        <a class="btn btn-primary" name="sys" href="{%url 'placement'%}" role="button">Placement</a>
-        <a class="btn btn-primary" name="sys" href="{%url 'highereducation' %}" role="button">Higher Education</a>
-        <button>List of Entrepreneur Details</button>
-        <button>Details of Student Publications</button>
-        <button>Curricular activities/sports/cultural activities/extra co-curricular activities</button>
-        <button>Scholarship</button>
-        <button>Skill enhance</button>
+    <div class=" d-flex flex-column justify-content-center align-items-center">
+        <a class="btn btn-primary my-3" name="sys" href="{%url 'details'%}" role="button">Details</a>
+            <a class="btn btn-primary my-3" name="sys" href="{%url 'placement'%}" role="button">Placement</a>
+            <a class="btn btn-primary my-3" name="sys" href="{%url 'highereducation' %}" role="button">Higher Education</a>
+            <button>List of Entrepreneur Details</button>
+            <button>Details of Student Publications</button>
+            <button>Curricular activities/sports/cultural activities/extra co-curricular activities</button>
+            <button>Scholarship</button>
+            <button>Skill enhance</button>
+        
     </div>
+
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>roll</th>
+            <th>email</th>
+            <th>password</th>
+            <th>phone</th>
+            <th>department</th>
+            <th>profilepic</th>
+            <th>createdAt</th>
+        </tr>
+        {% for person in persons %}
+        <tr>
+            <td>{{ person.fullname }}</td>
+            <td>{{ person.roll}}</td>
+            <td>{{ person.email }}</td>
+            <td>{{ person.password }}</td>
+            <td>{{ person.phone }}</td>
+            <td>{{ person.department }}</td>
+            {% if person.profile_pic == "../media/profile_pic/demo_pic.png" %}
+            <td><img src="/media/profile_pic/demo_pic.png" width="100px" alt="Profile picture">{{person.profile_pic}}</td>
+            {% else %}
+            <td><img src="/media/profile_pic/{{ person.profile_pic }}" width="100px" alt="Profile picture">{{person.profile_pic}}</td>
+            {% endif %}
+            <td>{{ person.createdAt }}</td>
+            <!-- {% ifchanged %}<h3>{{ person.|date:"F" }}</h3>{% endifchanged %} -->
+
+        </tr>
+        {% endfor %}
+    </table>
+
 </div>
 {% endblock content %}
+
+<!-- 
+
+
+ -->

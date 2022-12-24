@@ -1,6 +1,6 @@
 .p1{
     text-align: center;
-    height: 40%;
+    height: 100% !important;
     color: white;
     /* fallback for old browsers */
     background: #fccb90;

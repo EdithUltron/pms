@@ -15,12 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from home.views import detailsaction, highereducationaction, home, placementaction, profileaction
+from home.views import details,detailsedit,education,educationedit,skills,skillsedit,experience,experienceedit,projects,projectsedit,awards,awardsedit,publications,publicationsedit,scholarships,scholarshipsedit,activities,activitiesedit,links,linksedit
+# , highereducationaction, placementaction, profileaction
 from login.views import loginaction
 
-from home.views import highereducationaction, home, placementaction, profileaction
+from home.views import home,mainProfile
 from login.views import loginaction,logoutaction
 from signup.views import signaction
+
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,8 +33,34 @@ urlpatterns = [
     path('logout/',logoutaction,name="logout"),
     path('signup/',signaction,name="signup"),
     path('',home,name="home"),
-    path('profileedit/',profileaction,name="profileedit"),
-    path('placement/',placementaction,name="placement"),
-    path('highereducation/',highereducationaction,name="highereducation"),
-    path('details/',detailsaction,name="details"),
+    path('mainprofile/',mainProfile,name="mainprofile"),
+    path('profileedit/details/',detailsedit,name="detailsedit"),
+    path('profile/details/',details,name="details"),
+    path('profileedit/education/',educationedit,name="educationedit"),
+    path('profile/education/',education,name="education"),
+    path('profileedit/experience/',experienceedit,name="experienceedit"),
+    path('profile/experience/',experience,name="experience"),
+    path('profileedit/skills/',skillsedit,name="skillsedit"),
+    path('profile/skills/',skills,name="skills"),
+    path('profileedit/projects/',projectsedit,name="projectsedit"),
+    path('profile/projects/',projects,name="projects"),
+    path('profileedit/awards/',awardsedit,name="awardsedit"),
+    path('profile/awards/',awards,name="awards"),
+    path('profileedit/publications/',publicationsedit,name="publicationsedit"),
+    path('profile/publications/',publications,name="publications"),
+    path('profileedit/scholarships/',scholarshipsedit,name="scholarshipsedit"),
+    path('profile/scholarships/',scholarships,name="scholarships"),
+    path('profileedit/activities/',activitiesedit,name="activitiesedit"),
+    path('profile/activities/',activities,name="activities"),
+    path('profileedit/links/',linksedit,name="linksedit"),
+    path('profile/links/',links,name="links"),
+
+    # path('profile/',profileaction,name="profile"),
+    # path('placement/',placementaction,name="placement"),
+    # path('highereducation/',highereducationaction,name="highereducation"),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

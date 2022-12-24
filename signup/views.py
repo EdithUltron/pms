@@ -17,30 +17,33 @@ def signaction(request):
         if request.POST['password'] == request.POST['cpassword']:
             email=request.POST['email']
             password=make_password(request.POST['password'])
+            # request.POST['password']=password
+            # register.update_pass(password)
+            # logging.error(register.password)
             roll=request.POST['roll']
-            # logging.error(password)
-            register=RegisterForm(request.POST)
-            # register.data['password']=password
-            logging.error(register.data)
+            register=RegisterForm(request.POST or None)
+            # logging.error(register.data)
+            # logging.error(request)
             
-            for det in Register.objects.all():
-                logging.error(det.email)
-                if email==det.email:
+            if len(Register.objects.filter(email=email).values())!=0 or len(Register.objects.filter(roll=roll).values())!=0:
+                logging.error(len(Register.objects.filter(email=email).values()))
+                if len(Register.objects.filter(email=email).values())!=0:
                     messages.error(request,f"Email {email} already exists")
-                    break
-                if roll==det.roll:
+                if len(Register.objects.filter(roll=roll).values())!=0:
                     messages.error(request,f"User with {roll} already exists")
-                    break
             else:
                 if register.is_valid():
-                    reg=Register()
-                    reg.insert(request.POST['fullname'],request.POST['roll'],email,password,request.POST['phone'],request.POST['department'])                
-                    inst=reg.save()
-                    logging.error(reg.get_id())
-                    log=Login()
-                    log.insert(email,password)
-                    # inst=log.save(commit=False)
-                    log.register=reg
+                    # reg=Register()
+                    # reg.insert(request.POST['fullname'],request.POST['roll'],email,password,request.POST['phone'],request.POST['department'])                
+                    # log.insert()
+                    # log.register=inst
+                    inst=register.save()
+                    inst.update_pass(password)
+                    inst.save()
+                    logging.error(inst.get_id())
+                    logging.error(password)
+                    logging.error(inst.password)
+                    log=Login(register=inst,email=email,password=password)
                     log.save()
                     messages.success(request,f"Email registered")
                     logging.error("SignUp Successful")

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'signup.apps.SignupConfig',
     'login.apps.LoginConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Interactive_Portal.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -77,13 +80,17 @@ WSGI_APPLICATION = 'Interactive_Portal.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'ddrnmmjhk8n5jo',
+    #     'USER':'qewlgtgjnwgwjx',
+    #     'PASSWORD':'19d0ac135880c1f6ffe59600c0cb5c48522e6ead4167d7e036d71421d45089c1',
+    #     'HOST':'ec2-52-70-45-163.compute-1.amazonaws.com',
+    #     'PORT':'5432'
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ddrnmmjhk8n5jo',
-        'USER':'qewlgtgjnwgwjx',
-        'PASSWORD':'19d0ac135880c1f6ffe59600c0cb5c48522e6ead4167d7e036d71421d45089c1',
-        'HOST':'ec2-52-70-45-163.compute-1.amazonaws.com',
-        'PORT':'5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -128,6 +135,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+    # BASE_DIR / "media/profile_pic",
+
+MEDIA_URL="/media/profile_pic/"
+
+import os
+
+MEDIA_ROOT=os.path.join(BASE_DIR,"media/profile_pic/")
+
+# AUTH_USER_MODEL="signup.Register"
 
 # import logging
 
