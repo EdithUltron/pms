@@ -68,10 +68,28 @@ def detailsedit(request):
 
 @is_login
 def education(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Education.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/education.html', {'form': form})
 
 @is_login
-def educationedit(request):
+def educationadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -86,12 +104,28 @@ def educationedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/education')
         else:
             for field in form:
                 logging.error(field.errors)
     else:
         form = EducationForm()
+    return render(request, 'home/profileedit/education.html', {'form': form})
+
+@is_login
+def educationedit(request,id):
+    exp=Education.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = EducationForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/education/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = EducationForm(instance=exp)
     return render(request, 'home/profileedit/education.html', {'form': form})
 
 
@@ -118,9 +152,25 @@ def experience(request):
     logging.error(form)
     return render(request, 'home/profile/experience.html', {'form': form})
 
+@is_login
+def experienceedit(request,id):
+
+    exp=Experience.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = ExperienceForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/experience/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = ExperienceForm(instance=exp)
+    return render(request, 'home/profileedit/experience.html', {'form': form})
 
 @is_login
-def experienceedit(request):
+def experienceadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -135,7 +185,7 @@ def experienceedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/experience/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -152,10 +202,29 @@ def delete_entry(request, p):
 
 @is_login
 def skills(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Skills.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/skills.html', {'form': form})
+
 
 @is_login
-def skillsedit(request):
+def skillsadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -170,7 +239,7 @@ def skillsedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/skills/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -179,11 +248,47 @@ def skillsedit(request):
     return render(request, 'home/profileedit/skills.html', {'form': form})
 
 @is_login
-def projects(request):
-    pass
+def skillsedit(request,id):
+    exp=Skills.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = SkillsForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/skills/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = SkillsForm(instance=exp)
+    return render(request, 'home/profileedit/skills.html', {'form': form})
+
 
 @is_login
-def projectsedit(request):
+def projects(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Projects.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/projects.html', {'form': form})
+
+
+@is_login
+def projectsadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -198,7 +303,7 @@ def projectsedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/projects/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -206,13 +311,48 @@ def projectsedit(request):
         form = ProjectsForm()
     return render(request, 'home/profileedit/projects.html', {'form': form})
 
+@is_login
+def projectsedit(request,id):
+    exp=Projects.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = ProjectsForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/projects/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = ProjectsForm(instance=exp)
+    return render(request, 'home/profileedit/projects.html', {'form': form})
+
 
 @is_login
 def awards(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
 
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Awards.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/awards.html', {'form': form})
+
+    
 @is_login
-def awardsedit(request):
+def awardsadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -227,7 +367,7 @@ def awardsedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/awards/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -235,13 +375,48 @@ def awardsedit(request):
         form = AwardsForm()
     return render(request, 'home/profileedit/awards.html', {'form': form})
 
+@is_login
+def awardsedit(request,id):
+    exp=Awards.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = AwardsForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/awards/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = AwardsForm(instance=exp)
+    return render(request, 'home/profileedit/awards.html', {'form': form})
+
 
 @is_login
 def publications(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Publications.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/publications.html', {'form': form})
+
 
 @is_login
-def publicationsedit(request):
+def publicationsadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -256,7 +431,7 @@ def publicationsedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/publications/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -264,13 +439,48 @@ def publicationsedit(request):
         form = PublicationsForm()
     return render(request, 'home/profileedit/publications.html', {'form': form})
 
+@is_login
+def publicationsedit(request,id):
+    exp=Publications.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = PublicationsForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/publications/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = PublicationsForm(instance=exp)
+    return render(request, 'home/profileedit/publications.html', {'form': form})
+
 
 @is_login
 def scholarships(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Scholarships.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/scholarships.html', {'form': form})
+
 
 @is_login
-def scholarshipsedit(request):
+def scholarshipsadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -285,7 +495,7 @@ def scholarshipsedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/scholarships/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -293,13 +503,63 @@ def scholarshipsedit(request):
         form = ScholarshipsForm()
     return render(request, 'home/profileedit/scholarships.html', {'form': form})
 
+@is_login
+def scholarshipsedit(request,id):
+    exp=Scholarships.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = ScholarshipsForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/scholarships/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = ScholarshipsForm(instance=exp)
+    return render(request, 'home/profileedit/scholarships.html', {'form': form})
+
 
 @is_login
 def activities(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Activities.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/activities.html', {'form': form})
 
 @is_login
-def activitiesedit(request):
+def activitiesedit(request,id):
+    exp=Activities.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = ActivitiesForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/activities/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = ActivitiesForm(instance=exp)
+    return render(request, 'home/profileedit/activities.html', {'form': form})
+
+@is_login
+def activitiesadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -314,7 +574,7 @@ def activitiesedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/activities/')
         else:
             for field in form:
                 logging.error(field.errors)
@@ -325,10 +585,29 @@ def activitiesedit(request):
 
 @is_login
 def links(request):
-    pass
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        p = data['id']
+        logging.error(p)
+        return delete_entry(request,p)
+
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    exp=Links.objects.filter(register=reg)
+    logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    logging.error(form)
+    return render(request, 'home/profile/links.html', {'form': form})
+
 
 @is_login
-def linksedit(request):
+def linksadd(request):
     id=request.session.get("id")
     user=Login.objects.get(id=id)
     context=user.get_data()["data"]
@@ -343,12 +622,28 @@ def linksedit(request):
             inst.register=reg
             inst.save()
             logging.error(inst.getDetails())
-            return redirect('/mainprofile/')
+            return redirect('/profile/links/')
         else:
             for field in form:
                 logging.error(field.errors)
     else:
         form = LinksForm()
+    return render(request, 'home/profileedit/links.html', {'form': form})
+
+@is_login
+def linksedit(request,id):
+    exp=Links.objects.get(id=int(id))
+
+    if request.method == 'POST':
+        form = LinksForm(request.POST or None ,instance=exp)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/links/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = LinksForm(instance=exp)
     return render(request, 'home/profileedit/links.html', {'form': form})
 
 

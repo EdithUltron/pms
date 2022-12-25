@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'mainprofile/css/mainProfile.css' %}">
+    
     <title>
         {% block title %} {% endblock %}
     </title>
-    
+
     {% block styles %} {% endblock %}
 </head>
 
@@ -25,15 +26,15 @@
             <div class="sidebar-heading border-bottom bg-light"><a style="text-decoration: none; color:black;" href="/mainprofile/">Profile Manager</a></div>
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'details' %}">Basic Details</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'educationedit' %}">Education</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'education' %}">Education</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'experience' %}">Experience</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'skillsedit' %}">Skills</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'projectsedit' %}">Projects</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'awardsedit' %}">Honors/Awards</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'publicationsedit' %}">Publications</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'scholarshipsedit' %}">Scholarships</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'activitiesedit' %}">Other Activities</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'linksedit' %}">Links</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'skills' %}">Skills</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'projects' %}">Projects</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'awards' %}">Honors/Awards</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'publications' %}">Publications</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'scholarships' %}">Scholarships</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'activities' %}">Other Activities</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{%url 'links' %}">Links</a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -73,6 +74,62 @@
     </div>
 
     {% block scripts %}{% endblock %}
+    <script>
+        function del(id) {
+            let text;
+            if (confirm("Are you sure you want to delete ? ") == true) {
+                document.getElementById("error-message").innerHTML = id;
+                let csrf_token = getCookie('csrftoken');  // Get the value of the CSRF token from the cookie
+                document.getElementById("error-message").innerHTML = 0;
+                fetch('/profile/experience/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'id': id
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrf_token
+                    },
+                }).then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        location.reload();
+                    });
+                text = "You pressed OK!";
+            } else {
+                text = "You canceled!";
+            }
+            document.getElementById("error-message").innerHTML = text;
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+    <script>
+        const form = document.getElementsByClassName('form-outline');
+        const inputs = document.querySelectorAll('.form-group div input');
+        const labels = document.querySelectorAll('.form-group label');
+        for (const input of inputs) {
+            input.required = true;
+        }
+        for (const input of labels) {
+            input.classList.add("requiredField");
+        }
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'mainprofile/js/mainProfile.js' %}"></script>

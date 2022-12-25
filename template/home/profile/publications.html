@@ -1,7 +1,9 @@
 {% extends "base/homeBase.html" %}
 {% block title %}
-Profile Edit
+Publications
 {% endblock %}
 {% block content %}
-
+{% with form=form name="Publications" url="publications" %}
+{% include 'base/baseForDisplay.html' %}
+{% endwith %}
 {% endblock %}

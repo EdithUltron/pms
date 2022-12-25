@@ -1,65 +1,31 @@
+
+
+
 {% extends "base/homeBase.html" %}
 {% block title %}
-Profile Edit
+Experience
 {% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-sm-12">
-        <a class="btn btn-info " href="{% url 'experienceedit'  %}">Edit</a>
-    </div>
-</div>
-
-{% for exp,val in form.items %}
-<p data-pk="{{ exp }}" >{{ exp }}</p>
-{% for e,v in val.items %}
-<p>{{e}} : {{v}}</p>
-{% endfor %}
-<button class="btn btn-danger delete-button" onclick="del('{{exp}}')" data-pk="{{ exp }}">Delete</button>
-{%endfor%}
-
-<div id="error-message" style="color:red;"></div>
-
+{% with form=form name="Experience" url="experience" %}
+{% include 'base/baseForDisplay.html' %}
+{% endwith %}
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% block scripts %}
 
-<script>
-    function del(id) {
-        document.getElementById("error-message").innerHTML = id;
-        let csrf_token = getCookie('csrftoken');  // Get the value of the CSRF token from the cookie
-        document.getElementById("error-message").innerHTML = 0;
-        fetch('/profile/experience/', {
-            method: 'POST',
-            body: JSON.stringify({
-                'id': id
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrf_token
-            },
-        }).then(response => response.json())
-            .then(data => {
-                console.log(data);
-                location.reload();
-            });
-    }
 
-    function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                let cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    let cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-</script>
 
 <!-- document.addEventListener('click', function(event) {
 if (event.target.classList.contains('delete-button')) {

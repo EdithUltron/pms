@@ -18,7 +18,7 @@ from django.urls import path,include
 from home.views import details,detailsedit,education,educationedit,skills,skillsedit,experience,experienceedit,projects,projectsedit,awards,awardsedit,publications,publicationsedit,scholarships,scholarshipsedit,activities,activitiesedit,links,linksedit
 # , highereducationaction, placementaction, profileaction
 from login.views import loginaction
-
+from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
 from home.views import home,mainProfile
 from login.views import loginaction,logoutaction
 from signup.views import signaction
@@ -36,24 +36,33 @@ urlpatterns = [
     path('mainprofile/',mainProfile,name="mainprofile"),
     path('profileedit/details/',detailsedit,name="detailsedit"),
     path('profile/details/',details,name="details"),
-    path('profileedit/education/',educationedit,name="educationedit"),
+    path('profileedit/education/<str:id>/',educationedit,name="educationedit"),
     path('profile/education/',education,name="education"),
-    path('profileedit/experience/',experienceedit,name="experienceedit"),
+    path('profileadd/education/',educationadd,name="educationadd"),
+    path('profileadd/experience/',experienceadd,name="experienceadd"),
+    path('profileedit/experience/<str:id>/',experienceedit,name="experienceedit"),
     path('profile/experience/',experience,name="experience"),
-    path('profileedit/skills/',skillsedit,name="skillsedit"),
+    path('profileedit/skills/<str:id>/',skillsedit,name="skillsedit"),
+    path('profileadd/skills/',skillsadd,name="skillsadd"),
     path('profile/skills/',skills,name="skills"),
-    path('profileedit/projects/',projectsedit,name="projectsedit"),
+    path('profileedit/projects/<str:id>/',projectsedit,name="projectsedit"),
     path('profile/projects/',projects,name="projects"),
-    path('profileedit/awards/',awardsedit,name="awardsedit"),
+    path('profileadd/projects/',projectsadd,name="projectsadd"),
+    path('profileedit/awards/<str:id>/',awardsedit,name="awardsedit"),
     path('profile/awards/',awards,name="awards"),
-    path('profileedit/publications/',publicationsedit,name="publicationsedit"),
+    path('profileadd/awards/',awardsadd,name="awardsadd"),
+    path('profileedit/publications/<str:id>/',publicationsedit,name="publicationsedit"),
     path('profile/publications/',publications,name="publications"),
-    path('profileedit/scholarships/',scholarshipsedit,name="scholarshipsedit"),
+    path('profileadd/publications/',publicationsadd,name="publicationsadd"),
+    path('profileedit/scholarships/<str:id>/',scholarshipsedit,name="scholarshipsedit"),
     path('profile/scholarships/',scholarships,name="scholarships"),
-    path('profileedit/activities/',activitiesedit,name="activitiesedit"),
+    path('profileadd/scholarships/',scholarshipsadd,name="scholarshipsadd"),
+    path('profileedit/activities/',activitiesadd,name="activitiesadd"),
+    path('profileedit/activities/<str:id>/',activitiesedit,name="activitiesedit"),
     path('profile/activities/',activities,name="activities"),
-    path('profileedit/links/',linksedit,name="linksedit"),
+    path('profileedit/links/<str:id>/',linksedit,name="linksedit"),
     path('profile/links/',links,name="links"),
+    path('profileadd/links/',linksadd,name="linksadd"),
 
     # path('profile/',profileaction,name="profile"),
     # path('placement/',placementaction,name="placement"),

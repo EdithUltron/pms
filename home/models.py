@@ -40,16 +40,56 @@ class Education(models.Model):
     course=models.CharField(max_length=255, blank = True, null = True)
     startdate=models.DateField(default=datetime.now)
     enddate=models.DateField(default=datetime.now)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
     
 class Skills(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     skill=models.CharField(max_length=255, blank = True, null = True)
-    rating=models.IntegerField()
+    rating=models.CharField(max_length=10,default='1', choices=(
+            ( '0','0'),
+            ( '1','1'),
+            ( '2','2'),
+            ( '3','3'),
+            ( '4','4'),
+            ( '5','5'),
+            ( '6','6'),
+            ( '7','7'),
+            ( '8','8'),
+            ( '9','9'),
+            ( '10','10'),
+            ))
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
+    
 class Projects(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=500, blank = True, null = True)
     url=models.CharField(max_length=255, blank = True, null = True)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
 
 class Awards(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
@@ -57,22 +97,58 @@ class Awards(models.Model):
     description=models.CharField(max_length=255, blank = True, null = True)
     date=models.DateField(default=datetime.now)
 
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
+
 class Publications(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=255, blank = True, null = True)
     date=models.DateField(default=datetime.now)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
 class Scholarships(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=255, blank = True, null = True)
     date=models.DateField(default=datetime.now)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
 class Activities(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     # award=models.ForeignKey(Awards,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=255, blank = True, null = True)
     date=models.DateField(default=datetime.now)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
 class Links(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True,default='1', choices=(
@@ -86,4 +162,13 @@ class Links(models.Model):
             ('8','Facebook')
             ))
     url=models.CharField(max_length=255, blank = True, null = True)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
     

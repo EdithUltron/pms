@@ -3,10 +3,18 @@
 {% block title %} Experience {% endblock title %}
 {% block content %}
 <!-- <container style="display: flex;"> -->
+
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <a class="btn btn-success my-2" href="{%url 'experience' %}">Back</a>
+        <h1>Update Experience</h1>
+    </div>
+</div>
+
 <div class="card py-5">
     <div class="d-flex align-items-center  text-black card border-0 rounded-3">
         <div class="card-body p-sm-1 mx-sm-1 p-md-5 border border-dark col-lg-6 col-sm-12">
-                <form method="post">
+                <form id="my-form" method="post">
                     <div class="form-outline mb-4">
                             {% csrf_token %}
                             {{ form|crispy }}
@@ -20,8 +28,11 @@
 
 
 
-{% endblock content%}
+{% endblock%}
 
+<!-- {% block scripts %}
+
+{% endblock %} -->
 
 
 <!-- <form action="#">

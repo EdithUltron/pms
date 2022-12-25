@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'signup.apps.SignupConfig',
     'login.apps.LoginConfig',
     'crispy_forms',
+    'crispy_forms.helper',
+    'crispy_forms.layout'
 ]
 
 MIDDLEWARE = [

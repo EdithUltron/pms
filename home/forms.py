@@ -31,19 +31,28 @@ class EducationForm(forms.ModelForm):
             'enddate': forms.DateInput(attrs={'type': 'date'}),
             # 'register': forms.HiddenInput(),
         }   
-    
+
     def __str__(self) -> str:
-        return "Education form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
+
         
 
 class SkillsForm(forms.ModelForm):
     class Meta:
         model=Skills
         fields = "__all__"
-        exclude=["register"]  
-    
+        exclude=["register"]
+
     def __str__(self) -> str:
-        return "Skills form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
 
 class ProjectsForm(forms.ModelForm):
     class Meta:
@@ -52,34 +61,59 @@ class ProjectsForm(forms.ModelForm):
         exclude=["register"]
 
     def __str__(self) -> str:
-        return "Projects form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
 
 class AwardsForm(forms.ModelForm):
     class Meta:
         model=Awards
         fields = "__all__"
-        exclude=["register"]    
-    
+        exclude=["register"]  
+
     def __str__(self) -> str:
-        return "Awards form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
 
 class PublicationsForm(forms.ModelForm):
     class Meta:
         model=Publications
         fields = "__all__"
         exclude=["register"]  
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        } 
     
     def __str__(self) -> str:
-        return "Publications form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
+
 
 class ScholarshipsForm(forms.ModelForm):
     class Meta:
         model=Scholarships
         fields = "__all__"
-        exclude=["register"]    
+        exclude=["register"]
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        } 
     
     def __str__(self) -> str:
-        return "Scholarships form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
+    
+
 
 class ActivitiesForm(forms.ModelForm):
     class Meta:
@@ -88,14 +122,23 @@ class ActivitiesForm(forms.ModelForm):
         exclude=["register"]    
     
     def __str__(self) -> str:
-        return "Activities form"
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
+
 
 class LinksForm(forms.ModelForm):
     class Meta:
         model=Links
         fields = "__all__"
-        exclude=["register"]    
+        exclude=["register"] 
+
     
     def __str__(self) -> str:
-        return "Links form"
-
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
