@@ -38,7 +38,108 @@ def home(request):
 
 @is_login
 def mainProfile(request):
-    return render(request,'home/profile/mainProfile.html')
+    return render(request,"home/profile/mainprofile.html")
+
+
+@is_login
+def portfolio(request):
+    return render(request,"home/profile/portfolio.html")
+    
+
+@is_login
+def profile(request):
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    form={}
+    # Basic Details
+    details=user.get_data()["data"]
+    reg=Register.objects.get(id=details["reg_id"])
+    form["details"]=details
+    #Education
+
+    exp=Education.objects.filter(register=reg)
+    
+    edu={}
+    for e in exp:
+        p=e.getDetails()
+        edu[p["id"]]=p
+    form["education"]=edu
+    
+    #Experience
+    exp=Experience.objects.filter(register=reg)
+    ep={}
+    for e in exp:
+        p=e.getDetails()
+        ep[p["id"]]=p
+    form["experience"]=ep
+
+    # Skills
+    exp=Skills.objects.filter(register=reg)
+    skill={}
+    for e in exp:
+        p=e.getDetails()
+        skill[p["id"]]=p
+    form["skills"]=skill
+
+    # Projects
+
+    exp=Projects.objects.filter(register=reg)
+    pro={}
+    for e in exp:
+        p=e.getDetails()
+        pro[p["id"]]=p
+    form["projects"]=pro
+
+    
+    # Awards
+
+    exp=Awards.objects.filter(register=reg)
+    awa={}
+    for e in exp:
+        p=e.getDetails()
+        awa[p["id"]]=p
+    form["awards"]=awa
+
+    
+    # Publications
+
+    exp=Publications.objects.filter(register=reg)
+    pub={}
+    for e in exp:
+        p=e.getDetails()
+        pub[p["id"]]=p
+    form["publications"]=pub
+
+    
+    # Scholarships
+
+    exp=Scholarships.objects.filter(register=reg)
+    sch={}
+    for e in exp:
+        p=e.getDetails()
+        sch[p["id"]]=p
+    form["scholarships"]=sch
+
+    #Activities
+    exp=Activities.objects.filter(register=reg)
+    act={}
+    for e in exp:
+        p=e.getDetails()
+        act[p["id"]]=p
+    form["activities"]=act
+
+
+    #Links
+    exp=Links.objects.filter(register=reg)
+    lin={}
+    for e in exp:
+        p=e.getDetails()
+        lin[p["id"]]=p
+    form["links"]=lin
+
+    logging.error(form)
+
+    return render(request,'home/profile/profile.html',{'form':form})
 
 @is_login
 def details(request):

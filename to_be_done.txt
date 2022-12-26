@@ -1,0 +1,7 @@
+placeholders for all the models
+forgot password
+check all the functionalities
+changes in the UI
+Main Profile
+Resume Build
+Profile page change - UI and URL

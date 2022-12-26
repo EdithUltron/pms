@@ -5,6 +5,31 @@ Profile Edit
 {% block content %}
 <div class="container-fluid">
     <br>
-    <h1>Main Home Page</h1>
+    <div class="jumbotron">
+        <h1>Main Home Page</h1>
+        <a class="btn btn-outline-primary" href="{%url 'profile' %}">Visit Profile</a>
+        <a class="btn btn-outline-primary" href="{%url 'portfolio' %}">Go to Your Porfolio</a>
+        <div class="btn btn-outline-primary" onclick="printExternal('/profile/')" >Print Resume</div>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function printExternal(url) {
+var printWindow = window.open( url, 'Print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
+
+printWindow.addEventListener('load', function() {
+if (Boolean(printWindow.chrome)) {
+printWindow.print();
+setTimeout(function(){
+printWindow.close();
+}, 500);
+} else {
+printWindow.print();
+printWindow.close();
+}
+}, true);
+}
+</script>
 {% endblock %}

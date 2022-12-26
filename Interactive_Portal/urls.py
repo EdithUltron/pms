@@ -19,7 +19,7 @@ from home.views import details,detailsedit,education,educationedit,skills,skills
 # , highereducationaction, placementaction, profileaction
 from login.views import loginaction
 from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
-from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit
+from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio
 from login.views import loginaction,logoutaction
 from signup.views import signaction
 
@@ -34,6 +34,8 @@ urlpatterns = [
     path('signup/',signaction,name="signup"),
     path('',home,name="home"),
     path('mainprofile/',mainProfile,name="mainprofile"),
+    path('profile/',profile,name="profile"),
+    path('portfolio/',portfolio,name="portfolio"),
     path('profileedit/details/',detailsedit,name="detailsedit"),
     path('profile/details/',details,name="details"),
     path('profileedit/education/<str:id>/',educationedit,name="educationedit"),
