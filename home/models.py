@@ -2,15 +2,60 @@ from django.db import models
 from signup.models import Register
 from datetime import datetime
 import logging
+import os
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.core.validators import FileExtensionValidator
+from django.contrib.contenttypes.fields import GenericRelation
+from datetime import datetime
+# from .models import Certificates
+
+
+def upload_c_to(instance, filename):
+    logging.error(instance.content_object)
+    return os.path.join("certificates/",instance.content_object.register.roll, filename)
 # Create your models here.
+
+class Certificates(models.Model):
+    certificate_name = models.CharField(max_length=255)
+    certificate_file=models.FileField(upload_to=upload_c_to,default=None, validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data
+
+    def __str__(self):
+        return self.certificate_name
+    class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
+
+
+    
+
 class Experience(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
+    type=models.CharField(max_length=10,default='1', choices=(
+            ('1','Internship'),
+            ('2','Job')))
     company=models.CharField(max_length=255, blank = True, null = True)
     location=models.CharField(max_length=255, blank = True, null = True)
     role=models.CharField(max_length=255, blank = True, null = True)
     package=models.CharField(max_length=20, blank = True, null = True)
     startdate=models.DateField(default=datetime.now)
     enddate=models.DateField(default=datetime.now)
+    cert_count=models.IntegerField(default=0)
+    certificates=GenericRelation(Certificates)
     workmode=models.CharField(max_length=10,default='1', choices=(
             ('1','Online'),
             ('2','Offline')))
@@ -30,6 +75,8 @@ class Experience(models.Model):
 
     def __str__(self):
         return self.company
+
+
 
 
 
@@ -95,6 +142,7 @@ class Awards(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=255, blank = True, null = True)
+    cert_count=models.IntegerField(default=0)
     date=models.DateField(default=datetime.now)
 
     def getDetails(self):
@@ -110,6 +158,7 @@ class Publications(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=255, blank = True, null = True)
+    cert_count=models.IntegerField(default=0)
     date=models.DateField(default=datetime.now)
 
     def getDetails(self):
@@ -124,6 +173,7 @@ class Scholarships(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     name=models.CharField(max_length=255, blank = True, null = True)
     description=models.CharField(max_length=255, blank = True, null = True)
+    cert_count=models.IntegerField(default=0)
     date=models.DateField(default=datetime.now)
 
     def getDetails(self):

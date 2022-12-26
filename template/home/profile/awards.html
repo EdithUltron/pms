@@ -2,8 +2,37 @@
 {% block title %}
 Awards
 {% endblock %}
+
 {% block content %}
-{% with form=form name="Awards" url="awards" %}
-{% include 'base/baseForDisplay.html' %}
-{% endwith %}
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <h1>Awards Page</h1>
+        <a class="btn btn-success my-2 " href="{%url 'awardsadd' %}">Add</a>
+    </div>
+</div>
+{% if form|length > 0 %}
+
+{% for exp,val in form.items %}
+<div class="card text-white bg-dark mb-5 mx-3 border-warning">
+    <div class="card-header  border-warning ">
+        {{exp}}
+    </div>
+    <div class="card-body">
+        {% for e,v in val.items %}
+        <p>{{e}} : {{v}}</p>
+        {% endfor %}
+        <button class="btn btn-danger delete-button" onclick="del('{{exp}}','hon')">Delete</button>
+        <a class="btn btn-info " href="{% url 'awardsedit' id=exp  %}">Edit</a>
+        <a class="btn btn-info " href="{% url 'certificates' name='hon' id=exp  %}">Certificates</a>
+    </div><br>
+</div>
+{%endfor%}
+
+{%else%}
+
+<h1 class="text-center"> No Items found </h1>
+
+{%endif%}
+
+<div id="error-message" style="color:red;"></div>
 {% endblock %}

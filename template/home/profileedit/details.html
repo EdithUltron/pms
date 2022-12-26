@@ -15,7 +15,7 @@
         <div class="card-body p-sm-1 mx-sm-1 p-md-5 border border-dark col-lg-6 col-sm-12">
             <form method="POST" enctype="multipart/form-data" action="{% url 'detailsedit' %}">{% csrf_token %}
                 <div class="form-outline mb-4">
-                    <img src="/media/profile_pic/{{ form.profile_pic }}" width="100px" alt="Profile picture">
+                    <img src="/media/{{ form.profile_pic }}" width="100px" alt="Profile picture">
                     <label class="form-label">profile_pic</label>
                         <input {% if form.profile_pic %} value="{{form.profile_pic}}" {% endif %} type="file" name="profile_pic" class="form-control"
                         placeholder="profile_pic" />

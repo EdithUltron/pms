@@ -139,11 +139,11 @@ STATICFILES_DIRS = [
 ]
     # BASE_DIR / "media/profile_pic",
 
-MEDIA_URL="/media/profile_pic/"
+MEDIA_URL="/media/"
 
 import os
 
-MEDIA_ROOT=os.path.join(BASE_DIR,"media/profile_pic/")
+MEDIA_ROOT=os.path.join(BASE_DIR,"media/")
 
 # AUTH_USER_MODEL="signup.Register"
 

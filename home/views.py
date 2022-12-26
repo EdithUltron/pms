@@ -3,12 +3,16 @@ from login.models import loginForm,Login
 from signup.models import Register
 from .models import Experience,Education,Skills,Projects,Awards,Publications,Scholarships,Activities,Links
 from .forms import ExperienceForm,EducationForm,SkillsForm,ProjectsForm,AwardsForm,PublicationsForm,ScholarshipsForm,ActivitiesForm,LinksForm
+from .models import Certificates
+from .forms import CertificatesForm
 import logging
 from django.contrib import messages
 from functools import wraps
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 import json
+from django.contrib.contenttypes.models import ContentType
+
 
 def is_login(func):
     @wraps(func)
@@ -32,6 +36,7 @@ def home(request):
     logging.error(not islogin)
     return render(request,'home/home.html',{"form":{"name":name,"islogin":islogin}})
 
+@is_login
 def mainProfile(request):
     return render(request,'home/profile/mainProfile.html')
 
@@ -65,6 +70,93 @@ def detailsedit(request):
         return redirect("/profileedit/details/")
 
     return render(request,'home/profileedit/details.html',{"form":context})
+
+def certificates(request,name,id):
+    if name=="exp":
+        content_type = ContentType.objects.get_for_model(Experience)
+    if name=="hon":
+        content_type = ContentType.objects.get_for_model(Awards)
+    if name=="pub":
+        content_type = ContentType.objects.get_for_model(Publications)
+    if name=="sch":
+        content_type = ContentType.objects.get_for_model(Scholarships)
+    inst=content_type.get_object_for_this_type(pk=id)
+    exp=Certificates.objects.filter(content_type=content_type,object_id=id)
+    # logging.error(exp)
+    form={}
+    for e in exp:
+        p=e.getDetails()
+        logging.error(p)
+        form[p["id"]]=p
+    # logging.error(form)
+    return render(request, 'home/profile/certificates.html', {'form': form,'name':name,'id':id})
+
+def certificatesadd(request,name,id):
+    # content_type=None
+    if name=="exp":
+        content_type = ContentType.objects.get_for_model(Experience)
+    if name=="hon":
+        content_type = ContentType.objects.get_for_model(Awards)
+    if name=="pub":
+        content_type = ContentType.objects.get_for_model(Publications)
+    if name=="sch":
+        content_type = ContentType.objects.get_for_model(Scholarships)
+
+    inst=content_type.get_object_for_this_type(pk=id)
+
+    if request.method == 'POST':
+        cnt=inst.cert_count
+        form = CertificatesForm(request.POST, request.FILES)
+        if cnt < 2:
+                # Get the content type for the Activity model
+                # content_type = ContentType.objects.get_for_model(Activity)
+                # Create a new Certificate object
+            if form.is_valid():
+                certificate = form.save(commit=False)
+                certificate.content_type = content_type
+                # certificate.content_object = inst
+                inst.cert_count=cnt+1
+                inst.save()
+                certificate.object_id = id
+                logging.error("#########")
+                logging.error(content_type)
+                certificate.save()
+                logging.error(certificate.getDetails())
+                return redirect('/mainprofile/')
+        else:
+            logging.error("Error in cert upload")
+            logging.error(cnt)
+            logging.error(type(cnt))
+            logging.error(inst.cert_count)
+            messages.error(request,"Max 2 Documents Can Be Uploaded")
+    else:
+        form = CertificatesForm()
+
+    return render(request, 'home/profileedit/certificates.html', {'form':form})
+
+@is_login
+def certificatesedit(request,name,id,cid):
+
+    cert=get_object_or_404(Certificates,pk=cid)
+    fname=cert.certificate_file
+    if request.method == 'POST':
+        form = CertificatesForm(request.POST or None,request.FILES ,instance=cert)
+        if form.is_valid():
+            logging.error("---")
+            logging.error(cert.certificate_file)
+            if fname:
+                logging.error(cert.getDetails())
+                logging.error(fname)
+                cert.certificate_file.storage.delete(fname.name)
+            form.save()
+            return redirect('/profile/certificates/'+name+"/"+id+"/")
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = CertificatesForm(instance=cert)
+    return render(request, 'home/profileedit/certificates.html', {'form': form,'name':name,'id':id,'cid':cid})
+
 
 @is_login
 def education(request):
@@ -133,10 +225,13 @@ def educationedit(request,id):
 def experience(request):
 
     if request.method == 'POST':
+        logging.error("***********")
         data = json.loads(request.body)
+        name=data['name']
         p = data['id']
         logging.error(p)
-        return delete_entry(request,p)
+        logging.error(name)
+        return delete_entry(request,p,name)
 
     id=request.session.get("id")
     user=Login.objects.get(id=id)
@@ -193,10 +288,32 @@ def experienceadd(request):
         form = ExperienceForm()
     return render(request, 'home/profileedit/experience.html', {'form': form})
 
-def delete_entry(request, p):
-    Entry=Experience.objects.get(id=p)
+def delete_entry(request, p , name):
+    logging.error(p)
+    logging.error(name)
+    logging.error(name)
+    if name=="cert":
+        content_type = Certificates
+    if name=="exp":
+        content_type = Experience
+    if name=="hon":
+        content_type = Awards
+    if name=="pub":
+        content_type = Publications
+    if name=="sch":
+        content_type = Scholarships
+    Entry=content_type.objects.get(id=p)
+    if name=='cert':
+        fname=Entry.certificate_file
+        if fname:
+            logging.error(Entry.getDetails())
+            logging.error(fname)
+            Entry.certificate_file.storage.delete(fname.name)
+    if name!="cert":
+        cnt=Entry.cert_count
+        Entry.cert_count=cnt-1
     logging.error(Entry)
-    entry = get_object_or_404(Experience, pk=p)
+    entry = get_object_or_404(content_type, pk=p)
     entry.delete()
     return JsonResponse({'success': True})
 

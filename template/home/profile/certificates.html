@@ -1,9 +1,16 @@
+{% extends "base/homeBase.html" %}
+{% block title %}
+Certificates
+{% endblock %}
+{% block content %}
+
 <div class="jumbotron">
     <div class="d-flex justify-content-between ">
-        <h1>{{name}} Page</h1>
-        <a class="btn btn-success my-2 " href="{%url url|add:'add' %}">Add</a>
+        <h1>Certificates Page</h1>
+        <a class="btn btn-success my-2 " href="{%url 'certificatesadd' name=name id=id %}">Add</a>
     </div>
 </div>
+
 {% if form|length > 0 %}
 
 {% for exp,val in form.items %}
@@ -15,8 +22,8 @@
         {% for e,v in val.items %}
         <p>{{e}} : {{v}}</p>
         {% endfor %}
-        <button class="btn btn-danger delete-button" onclick="del('{{exp}}')">Delete</button>
-        <a class="btn btn-info " href="{% url url|add:'edit' id=exp  %}">Edit</a>
+        <button class="btn btn-danger delete-button" onclick="del('{{exp}}','cert')">Delete</button>
+        <a class="btn btn-info " href="{% url 'certificatesedit' name=name id=id cid=exp  %}">Edit</a>
     </div><br>
 </div>
 {%endfor%}
@@ -27,6 +34,4 @@
 
 {%endif%}
 
-
-
-<!-- <div id="error-message" style="color:red;"></div> -->
+{% endblock %}

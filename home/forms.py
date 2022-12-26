@@ -1,14 +1,17 @@
 from django import forms
 from .models import Experience,Education,Skills,Projects,Awards,Publications,Scholarships,Activities,Links
+from .models import Certificates
 
 class ExperienceForm(forms.ModelForm):
     class Meta:
         model=Experience
         fields="__all__"
-        exclude=["register"]
+        exclude=["register","cert_count"]
         widgets = {
             'startdate': forms.DateInput(attrs={'type': 'date'}),
             'enddate': forms.DateInput(attrs={'type': 'date'}),
+            'company': forms.TextInput(attrs={'placeholder': 'Name of the company'}),
+            'location': forms.TextInput(attrs={'placeholder': 'Location of the company'}),
             # 'register': forms.HiddenInput(),
         }
 
@@ -19,7 +22,46 @@ class ExperienceForm(forms.ModelForm):
             data[attr_name]=attr_value
         return data
         # return "Experience form"
+    
+    def clean(self):
+        # Get the start and end dates from the form
+        start_date = self.cleaned_data.get('startdate')
+        end_date = self.cleaned_data.get('enddate')
 
+        # Validate that the start date is not greater than the end date
+
+        if start_date and end_date and start_date >= end_date:
+            raise forms.ValidationError("The start date cannot be later than or Equal to the end date.")
+
+        return self.cleaned_data
+
+class CertificatesForm(forms.ModelForm):
+
+    class Meta:
+        model=Certificates
+        fields = ['certificate_name', 'certificate_file']
+    
+    # def save(self, commit=True):
+    #     # Save the original certificate_file field value
+    #     original_certificate_file = self.instance.certificate_file
+    #     # Save the updated Certificate object
+    #     certificate = super().save(commit=commit)
+    #     # If the certificate_file field has changed, delete the previous file
+    #     if original_certificate_file and original_certificate_file != certificate.certificate_file:
+    #         original_certificate_file.storage.delete(original_certificate_file.name)
+    #     return certificate
+
+    # content_type = forms.ModelChoiceField(
+    #     queryset=ContentType.objects.all(),
+    #     required=False,
+    #     widget=forms.HiddenInput()
+    # )
+    # object_id = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    # content_object = GenericForeignKey('content_type', 'object_id')
+
+    # class Meta:
+    #     model = Certificate
+    #     fields = ['certificate_name', 'certificate_file', 'content_type', 'object_id']
 
 class EducationForm(forms.ModelForm):
     class Meta:
@@ -71,7 +113,7 @@ class AwardsForm(forms.ModelForm):
     class Meta:
         model=Awards
         fields = "__all__"
-        exclude=["register"]  
+        exclude=["register","cert_count"]  
 
     def __str__(self) -> str:
         data={}
@@ -84,7 +126,7 @@ class PublicationsForm(forms.ModelForm):
     class Meta:
         model=Publications
         fields = "__all__"
-        exclude=["register"]  
+        exclude=["register","cert_count"]  
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
         } 
@@ -101,7 +143,7 @@ class ScholarshipsForm(forms.ModelForm):
     class Meta:
         model=Scholarships
         fields = "__all__"
-        exclude=["register"]
+        exclude=["register","cert_count"]
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
         } 

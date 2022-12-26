@@ -68,6 +68,13 @@
             <!-- Page content-->
             <div class="page-details" style="overflow-y: scroll; height: 100vh;" >
                 {% block content %} {% endblock %}
+                {% if messages %}
+                <ul class="messages d-flex flex-column justify-content-center align-items-center">
+                    {% for message in messages %}
+                    <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </div>
             
         </div>
@@ -75,16 +82,19 @@
 
     {% block scripts %}{% endblock %}
     <script>
-        function del(id) {
+        function del(id,name) {
             let text;
             if (confirm("Are you sure you want to delete ? ") == true) {
-                document.getElementById("error-message").innerHTML = id;
+                alert(id+name)
+                //document.getElementById("error-message").innerHTML = id;
+                //document.getElementById("error-message").innerHTML = 0;
                 let csrf_token = getCookie('csrftoken');  // Get the value of the CSRF token from the cookie
-                document.getElementById("error-message").innerHTML = 0;
+                
                 fetch('/profile/experience/', {
                     method: 'POST',
                     body: JSON.stringify({
-                        'id': id
+                        'id': id,
+                        'name':name
                     }),
                     headers: {
                         'Content-Type': 'application/json',

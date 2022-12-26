@@ -5,7 +5,7 @@ import os
 import logging
 
 def upload_to(instance, filename):
-    return os.path.join(instance.roll, filename)
+    return os.path.join("profile_pic/",instance.roll, filename)
 
 # Create your models here.
 
