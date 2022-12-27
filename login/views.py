@@ -96,6 +96,15 @@ def adminlogin(request):
 
     
 def adminpage(request):
+    islog=request.session.get("adminlogin",False)
+    if islog:
+        logging.error("Logged in already")
+        return redirect("/adminpage/")
+    
+    cango=request.session.get("cango",False)
+    if not cango:
+        return render(request,'signup/keypage.html')
+
     return render(request,'login/adminpage.html')
 
 
