@@ -7,9 +7,11 @@ Profile Edit
     <br>
     <div class="jumbotron">
         <h1>Main Home Page</h1>
-        <a class="btn btn-outline-primary" href="{%url 'profile' %}">Visit Profile</a>
-        <a class="btn btn-outline-primary" href="{%url 'portfolio' %}">Go to Your Porfolio</a>
+        <div class="col mt-5">
+        <a class="btn btn-outline-primary mb-3" href="{%url 'profile' %}">Visit Profile</a><br>
+        <a class="btn btn-outline-primary mb-3" href="{%url 'portfolio' %}">Go to Your Porfolio</a><br>
         <div class="btn btn-outline-primary" onclick="printExternal('/profile/')" >Print Resume</div>
+        </div>
     </div>
 </div>
 {% endblock %}
