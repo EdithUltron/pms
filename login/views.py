@@ -15,6 +15,7 @@ def loginaction(request):
     
     islog=request.session.get("islogin",False)
     
+    
     if islog:
         logging.error("Logged in already")
         return redirect("/")

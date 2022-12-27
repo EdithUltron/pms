@@ -62,3 +62,35 @@ def signaction(request):
 
 def setting(request):
     return render(request,'signup/settings.html')
+
+def changepassword(request):
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+
+    if request.method=="POST":
+        pwd=request.POST.get("cpassword",None)
+        pwd1=request.POST.get("c1password",None)
+        pwd2=request.POST.get("c2password",None)
+        opwd=reg.password
+        logging.error(opwd)
+        logging.error(make_password(pwd))
+        if check_password(pwd,opwd):
+            logging.error("success")
+            if pwd1!="" or pwd2!="":
+                if pwd1==pwd2:
+                    pwd1=make_password(pwd1)
+                    reg.update_pass(pwd1)
+                    user.password=pwd1
+                    user.save()
+                    reg.save()
+                    messages.success(request,f'Password Changed Successfully')
+                else:
+                    messages.error(request,f'Password Mismatch')
+            else:
+                messages.error(request,f'Password cant be empty')
+        else:
+            messages.error(request,f'Incorrect password')
+        
+    return render(request,'signup/changepassword.html')

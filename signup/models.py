@@ -69,3 +69,12 @@ class RegisterForm(forms.ModelForm):
     
     def __str__(self) -> str:
         return "Register form"
+
+
+# class changepassword(models.Model):
+#     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
+    
+
+# class changepassword(forms.ModelForm):
+#     class Meta:
+#         model=Register
