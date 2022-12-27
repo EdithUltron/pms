@@ -28,7 +28,7 @@ class Register(models.Model):
         self.phone=phone
         self.department=dept
 
-        if self.profile_pic.name=="../media/profile_pic/demo_pic.png":
+        if self.profile_pic.name=="../media/profile_pic/demo_pic.png" or self.profile_pic.name=="":
             self.profile_pic=pp
         else:
             logging.error(pp)

@@ -92,6 +92,7 @@ class Education(models.Model):
             ( '7','PG'),
             ( '8','BArch'),
             ))
+    name=models.CharField(max_length=255, blank = True, null = True)
     location=models.CharField(max_length=255, blank = True, null = True)
     course=models.CharField(max_length=255, blank = True, null = True)
     startdate=models.DateField(default=datetime.now)

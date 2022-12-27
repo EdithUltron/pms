@@ -157,12 +157,12 @@ def detailsedit(request):
     context=user.get_data()["data"]
     reg=Register.objects.get(id=context["reg_id"])
     # logging.error(user.get_data())
-    # logging.error(context)
-    # logging.error(request.FILES)
-    # logging.error(dir(request.FILES))
+    logging.error(context)
+    logging.error(request.FILES)
+    logging.error(dir(request.FILES))
 
     if request.method=="POST":
-        p=request.FILES.get("profile_pic",None)
+        p=request.FILES.get("profile_pic",context['profile_pic'])
         logging.error(p)
         reg.update(request.POST.get("aboutme",context['aboutme']),request.POST.get("fullname",context['fullname']),request.POST.get("roll",context['roll']),request.POST.get("email",context['email']),request.POST.get("department",context['department']),request.POST.get("phone",context['phone']),pp=p)
         logging.error(request.POST.get("fullname",context['fullname']))
