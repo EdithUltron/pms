@@ -59,3 +59,6 @@ def signaction(request):
 
     return render(request,'signup/signup_page.html',{'form':register.data})
 
+
+def setting(request):
+    return render(request,'signup/settings.html')

@@ -21,7 +21,7 @@ from login.views import loginaction
 from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
 from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio
 from login.views import loginaction,logoutaction
-from signup.views import signaction
+from signup.views import signaction,setting
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -33,6 +33,7 @@ urlpatterns = [
     path('logout/',logoutaction,name="logout"),
     path('signup/',signaction,name="signup"),
     path('',home,name="home"),
+    path('mainprofile/settings',setting,name="setting"),
     path('mainprofile/',mainProfile,name="mainprofile"),
     path('profile/',profile,name="profile"),
     path('portfolio/',portfolio,name="portfolio"),
