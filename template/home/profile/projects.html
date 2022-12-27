@@ -3,7 +3,33 @@
 Projects
 {% endblock %}
 {% block content %}
-{% with form=form name="Projects" n="pro" url="projects" %}
-{% include 'base/baseForDisplay.html' %}
-{% endwith %}
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <h1>Projects Page</h1>
+        <a class="btn btn-success my-2 " href="{%url 'projectsadd' %}">Add</a>
+    </div>
+</div>
+{% for exp,val in form.items %}
+<div class="col col-md-6 my-4 mx-auto">
+
+<div class="card w-100">
+    <div class="card-header">
+        <h3>{{val.name}}</h3>
+    </div>
+    <div class="card-body">
+      <p>
+        <h5>Description:</h5>{{val.description}}<br><br><h5>Project Link:</h5><a href="https://github.com/EdithUltron/pms">{{val.url}}</a>
+      </p>
+    </div>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-danger delete-button" onclick="del('{{exp}}','pro')">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-info" href="{%url 'projectsedit' id=exp %}">Edit</a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{%endfor%}
 {% endblock %}

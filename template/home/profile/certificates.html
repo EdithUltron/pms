@@ -1,4 +1,4 @@
-{% extends "base/homeBase.html" %}
+`{% extends "base/homeBase.html" %}
 {% block title %}
 Certificates
 {% endblock %}
@@ -7,24 +7,50 @@ Certificates
 <div class="jumbotron">
     <div class="d-flex justify-content-between ">
         <h1>Certificates Page</h1>
-        <a class="btn btn-success my-2 " href="{%url 'certificatesadd' name=name id=id %}">Add</a>
+        <div>
+            <a class="btn btn-success my-2 " href="{%url 'certificatesadd' name=name id=id %}">Add</a>
+        {%if name == "hon" %}
+        <a class="btn btn-success my-2" href="{%url 'awards' %}">Back</a>
+        {%endif%}
+        {%if name == "exp" %}
+        <a class="btn btn-success my-2" href="{%url 'experience' %}">Back</a>
+        {%endif%}
+        {%if name == "pub" %}
+        <a class="btn btn-success my-2" href="{%url 'publications' %}">Back</a>
+        {%endif%}
+        {%if name == "sch" %}
+        <a class="btn btn-success my-2" href="{%url 'scholarships' %}">Back</a>
+        {%endif%}
+        </div>
+        
     </div>
 </div>
 
 {% if form|length > 0 %}
 
 {% for exp,val in form.items %}
-<div class="card text-white bg-dark mb-5 mx-3 border-warning">
-    <div class="card-header  border-warning ">
-        {{exp}}
-    </div>
-    <div class="card-body">
-        {% for e,v in val.items %}
-        <p>{{e}} : {{v}}</p>
-        {% endfor %}
-        <button class="btn btn-danger delete-button" onclick="del('{{exp}}','cert')">Delete</button>
+
+<div class="col col-md-6 my-4 mx-auto">
+
+    <div class="card w-100">
+        <div class="card-header">
+            <h3>{{val.certificate_name}}</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <h5>Certificate File: &nbsp;&nbsp;&nbsp;&nbsp;<a href="/media/{{val.certificate_file}}" target="_blank" style="text-decoration: none;">Certificate Link</a></h5><br><br>
+                <a class="btn btn-primary" href="/media/{{val.certificate_file}}" target="_blank" style="text-decoration: none;" download>Download</a></h5><br><br>
+          </p>
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-danger delete-button" onclick="del('{{exp}}','cert')">Delete</button>
         <a class="btn btn-info " href="{% url 'certificatesedit' name=name id=id cid=exp  %}">Edit</a>
-    </div><br>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>
 {%endfor%}
 

@@ -3,7 +3,52 @@
 Skills
 {% endblock %}
 {% block content %}
-{% with form=form name="Skills" n="sch" url="skills" %}
-{% include 'base/baseForDisplay.html' %}
-{% endwith %}
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <h1>Skills Page</h1>
+        <a class="btn btn-success my-2 " href="{%url 'skillsadd' %}">Add</a>
+    </div>
+</div>
+{% for exp,val in form.items %}
+<div class="col col-md-6 my-4 mx-auto">
+
+  <div class="card w-100">
+      <div class="card-header">
+          <h3>{{val.skill}}</h3>
+      </div>
+      <div class="card-body">
+        <div class="rating" data-rating="{{ val.rating|floatformat:1 }}">
+        </div>
+      </div>
+      <div class="container">
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-danger delete-button" onclick="del('{{exp}}','ski')">Delete</button>
+        <a class="btn btn-info" href="{%url 'skillsedit' id=exp %}">Edit</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+
+
+
+
 {% endblock %}
+
+{% block scripts %}
+{% for i,skill in form.items %}
+<script>
+document.querySelectorAll('.rating').forEach(element => {
+  const rating = element.dataset.rating;
+  const fullStars = Math.min(Math.floor(rating), 10);
+  const emptyStars = 10 - fullStars;
+  element.innerHTML = '\u2605'.repeat(fullStars) + '\u2606'.repeat(emptyStars);
+});
+</script>
+{% endfor %}
+{% endblock %}
+
+
+

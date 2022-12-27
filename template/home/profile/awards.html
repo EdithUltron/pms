@@ -13,18 +13,27 @@ Awards
 {% if form|length > 0 %}
 
 {% for exp,val in form.items %}
-<div class="card text-white bg-dark mb-5 mx-3 border-warning">
-    <div class="card-header  border-warning ">
-        {{exp}}
+<div class="col col-md-6 my-4 mx-auto">
+
+    <div class="card w-100">
+        <div class="card-header">
+            <h3>{{val.name}}</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <h5>Description:</h5>{{val.description}}<br><br><h5>Cerificate Count:</h5>{{val.cert_count}}<br><br><h5>Date Issued:</h5>{{val.date}}<br><br>
+          </p>
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-danger delete-button" onclick="del('{{exp}}','hon')">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-info" href="{%url 'awardsedit' id=exp %}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-info " href="{% url 'certificates' name='hon' id=exp  %}">Certificates</a>
+              </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        {% for e,v in val.items %}
-        <p>{{e}} : {{v}}</p>
-        {% endfor %}
-        <button class="btn btn-danger delete-button" onclick="del('{{exp}}','hon')">Delete</button>
-        <a class="btn btn-info " href="{% url 'awardsedit' id=exp  %}">Edit</a>
-        <a class="btn btn-info " href="{% url 'certificates' name='hon' id=exp  %}">Certificates</a>
-    </div><br>
 </div>
 {%endfor%}
 

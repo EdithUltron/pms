@@ -3,7 +3,44 @@
 Publications
 {% endblock %}
 {% block content %}
-{% with form=form name="Publications" n="pub" url="publications" %}
-{% include 'base/baseForDisplay.html' %}
-{% endwith %}
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <h1>Publications Page</h1>
+        <a class="btn btn-success my-2 " href="{%url 'publicationsadd' %}">Add</a>
+    </div>
+</div>
+
+{% if form|length > 0 %}
+
+{% for exp,val in form.items %}
+<div class="col col-md-6 my-4 mx-auto">
+
+    <div class="card w-100">
+        <div class="card-header">
+            <h3>{{val.name}}</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <h5>Description:</h5>{{val.description}}<br><br><h5>Cerificate Count:</h5>{{val.cert_count}}<br><br><h5>Date Issued:</h5>{{val.date}}<br><br>
+          </p>
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-danger delete-button" onclick="del('{{exp}}','pub')">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-info" href="{%url 'publicationsedit' id=exp %}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-info " href="{% url 'certificates' name='pub' id=exp  %}">Certificates</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+
+{%else%}
+
+<h1 class="text-center"> No Items found </h1>
+
+{%endif%}
+<div id="error-message" style="color:red;"></div>
 {% endblock %}

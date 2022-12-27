@@ -5,3 +5,4 @@ changes in the UI
 Main Profile
 Resume Build
 Profile page change - UI and URL
+<!-- {% include 'base/baseForDisplay.html' %} -->

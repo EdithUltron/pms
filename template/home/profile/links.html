@@ -3,7 +3,60 @@
 Links
 {% endblock %}
 {% block content %}
-{% with form=form name="Links" url="links" %}
-{% include 'base/baseForDisplay.html' %}
-{% endwith %}
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <h1>Links Page</h1>
+        <a class="btn btn-success my-2 " href="{%url 'linksadd' %}">Add</a>
+    </div>
+</div>
+
+{% if form|length > 0 %}
+
+{% for exp,val in form.items %}
+<div class="col col-md-6 my-4 mx-auto">
+
+    <div class="card w-100">
+        <div class="card-header">
+            <h3>  
+             {% if val.name == "1" %} LinkedIn
+             {%endif%}
+             {% if val.name == "2" %} Github
+             {%endif%}
+             {% if val.name == "3" %} Twitter
+             {%endif%}
+             {% if val.name == "4" %} Instagram
+             {%endif%}
+             {% if val.name == "5" %} Discord
+             {%endif%}
+             {% if val.name == "6" %} Stackoverflow
+             {%endif%}
+             {% if val.name == "7" %} Portfolio
+             {%endif%}
+             {% if val.name == "8" %} Facebook
+             {%endif%}
+            </h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <a style="text-decoration: none;" target="_blank" href=" {{val.url}} ">Link</a><br><br>
+          </p>
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-danger delete-button" onclick="del('{{exp}}','lin')">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-info" href="{%url 'linksedit' id=exp %}">Edit</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+
+{%else%}
+
+<h1 class="text-center"> No Items found </h1>
+
+{%endif%}
+<div id="error-message" style="color:red;"></div>
 {% endblock %}

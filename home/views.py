@@ -223,7 +223,7 @@ def certificatesadd(request,name,id):
                 logging.error(content_type)
                 certificate.save()
                 logging.error(certificate.getDetails())
-                return redirect('/mainprofile/')
+                return redirect('/profile/certificates/'+name+"/"+id+"/")
         else:
             logging.error("Error in cert upload")
             logging.error(cnt)
@@ -233,7 +233,7 @@ def certificatesadd(request,name,id):
     else:
         form = CertificatesForm()
 
-    return render(request, 'home/profileedit/certificates.html', {'form':form})
+    return render(request, 'home/profileedit/certificates.html', {'form':form,'name':name,'id':id})
 
 @is_login
 def certificatesedit(request,name,id,cid):
