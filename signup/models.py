@@ -78,3 +78,28 @@ class RegisterForm(forms.ModelForm):
 # class changepassword(forms.ModelForm):
 #     class Meta:
 #         model=Register
+
+
+class AdminRegister(models.Model):
+    email=models.EmailField(max_length=150,unique=True,null=False)
+    password=models.CharField(max_length=200,null=False)
+    department = models.CharField(max_length=5,null=False,default='1', choices=(
+            ( '1','CSE'),
+            ( '2','IT'),
+            ( '3','ECE'),
+            ( '4','MECH'),
+            ( '5','EEE'),
+            ( '6','CIV'),
+            ( '7','MET'),
+            ))
+    phone = models.CharField(max_length=20, blank = True, null = True)
+    createdAt = models.DateTimeField("Created At", auto_now_add=True)
+
+
+class AdminRegisterForm(forms.ModelForm):
+    class Meta:
+        model=AdminRegister
+        fields="__all__"
+        widgets = {
+            'password':forms.PasswordInput(),
+        }

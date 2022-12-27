@@ -1,0 +1,58 @@
+{% extends "base/base.html"%}
+{% block title %} Login {% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-xl-10 pl-0 pr-0">
+                <div class="card rounded-3">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+
+                            <h1 class="mt-5 pb-1 gradient-text text-center"><b>Admin Login</b></h1>
+
+                            <div class="card-body p-md-5 mx-md-4 text-center" style="margin:100px auto;">
+                                <!--style="margin:200px auto" -->
+                                <!-- <div class="center">                                       -->
+                                <img src="{% static 'login/logo.png' %}" class="img-fluid" alt="Responsive image"
+                                    style="width:85%">
+                                <!-- </div>                                   -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-center gradient-design text-black">
+                            <div class="card-body p-md-5 mx-md-4">
+                                <form method="POST" action="{% url 'adminlogin' %}">
+                                    {% csrf_token %}
+                                    {{form|crispy}}
+                                    <div class="text-center pt-1 mb-5 pb-1">
+                                        <button
+                                            class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light"
+                                            type="submit">Login</button>
+                                    </div>
+                                    {% if messages %}
+                                    <ul class="messages d-flex flex-column justify-content-center align-items-center">
+                                        {% for message in messages %}
+                                        <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" 
+                                        {% endif %}> {{ message }} </p>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2"> Don't have an account? </p>&nbsp;&nbsp;
+                                        <a href="{%url 'adminsignup' %}"><button type="button"
+                                                class="btn btn-outline-danger" style="color:white">Signup
+                                                here</button></a>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

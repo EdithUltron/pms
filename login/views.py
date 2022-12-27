@@ -1,9 +1,10 @@
 from django.shortcuts import HttpResponse, redirect, render
-from .models import loginForm,Login
+from .models import loginForm,Login,Adminloginform
 import logging
 from signup.models import Register
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
+from signup.models import AdminRegister,AdminRegisterForm
 
 def loginaction(request):
     # logging.error("Inside Login")
@@ -67,3 +68,42 @@ def logoutaction(request):
     except:
       pass
     return redirect("/login/")
+
+
+
+
+def adminlogin(request):
+    form=Adminloginform()
+    islog=request.session.get("adminlogin",False)
+    if islog:
+        logging.error("Logged in already")
+        return redirect("/adminpage/")
+
+    if request.method =="POST":
+        email=request.POST.get("email")
+        pwd=request.POST.get("password")
+        id=AdminRegister.objects.get(email=email)
+
+        if id!=None and id.password==pwd:
+            request.session["adminlogin"]=True
+            return redirect("/adminpage/")
+
+    cango=request.session.get("cango",False)
+    if cango:
+        return render(request,'login/adminlogin.html',{'form':form})
+    
+    return render(request,'signup/keypage.html')
+
+    
+def adminpage(request):
+    return render(request,'login/adminpage.html')
+
+
+def adminlogout(request):
+    try:
+      del request.session["cango"]
+      del request.session["adminlogin"]
+    #   del request.session["name"]
+    except:
+      pass
+    return redirect("/adminsignup/")

@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from signup.models import Register
+from signup.models import Register,AdminRegister
 
 # Create your models here.
 class Login(models.Model):
@@ -41,3 +41,12 @@ class loginForm(forms.Form):
     
     def __str__(self) -> str:
         return "Login form"
+
+
+class Adminloginform(forms.ModelForm):
+    class Meta:
+        model=AdminRegister
+        fields=['email','password']
+        widgets = {
+            'password':forms.PasswordInput(),
+        }

@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 import logging
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
-from .models import Register,RegisterForm
+from .models import Register,RegisterForm,AdminRegister,AdminRegisterForm
 from login.models import Login
 
 def signaction(request):
@@ -19,12 +19,11 @@ def signaction(request):
             password=make_password(request.POST['password'])
             # request.POST['password']=password
             # register.update_pass(password)
-            # logging.error(register.password)
             roll=request.POST['roll']
             register=RegisterForm(request.POST or None)
+            # logging.error(register.password)
             # logging.error(register.data)
             # logging.error(request)
-            
             if len(Register.objects.filter(email=email).values())!=0 or len(Register.objects.filter(roll=roll).values())!=0:
                 logging.error(len(Register.objects.filter(email=email).values()))
                 if len(Register.objects.filter(email=email).values())!=0:
@@ -94,3 +93,35 @@ def changepassword(request):
             messages.error(request,f'Incorrect password')
         
     return render(request,'signup/changepassword.html')
+
+
+def adminsignup(request):
+
+    adm=AdminRegisterForm()
+    islog=request.session.get("adminlogin",False)
+    if islog:
+        logging.error("Logged in already")
+        return redirect("/adminpage/")
+
+    # logging.error(request.session.__dict__)
+
+    if request.method =="POST":
+        key=request.POST.get("key")
+        if request.session.get("cango",False):
+            del request.session["cango"]
+        logging.error(request.session)
+        logging.error("Hello")
+        if key=="j1n2t3u4g5v6":
+            request.session["cango"]=True
+            return redirect("/adminlogin/")
+        else:
+            messages.error(request,f'Key Conflict')
+            return redirect("/adminsignup/")
+
+    cango=request.session.get("cango",False)
+    if cango:
+        return render(request,'signup/adminsignup.html',{'form':adm})
+
+    return render(request,'signup/keypage.html')
+
+
