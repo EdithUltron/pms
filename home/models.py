@@ -82,7 +82,16 @@ class Experience(models.Model):
 
 class Education(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
-    school=models.CharField(max_length=255, blank = True, null = True)
+    school=models.CharField(max_length=255, blank = True, null = True,default='1', choices=(
+            ( '1','High School'),
+            ( '2','Intermediate'),
+            ( '3','Diploma'),
+            ( '4','Btech'),
+            ( '5','Mtech'),
+            ( '6','MCA'),
+            ( '7','PG'),
+            ( '8','BArch'),
+            ))
     location=models.CharField(max_length=255, blank = True, null = True)
     course=models.CharField(max_length=255, blank = True, null = True)
     startdate=models.DateField(default=datetime.now)

@@ -403,6 +403,17 @@ def delete_entry(request, p , name):
         content_type = Publications
     if name=="sch":
         content_type = Scholarships
+    if name=="edu":
+        content_type = Education
+    if name=="ski":
+        content_type = Skills
+    if name=="lin":
+        content_type = Links
+    if name=="pro":
+        content_type = Projects
+    if name=="act":
+        content_type = Activities
+    
     Entry=content_type.objects.get(id=p)
     if name=='cert':
         fname=Entry.certificate_file
@@ -410,7 +421,7 @@ def delete_entry(request, p , name):
             logging.error(Entry.getDetails())
             logging.error(fname)
             Entry.certificate_file.storage.delete(fname.name)
-    if name!="cert":
+    if name=="exp" or name=="hon" or name=="pub" or name=="sch" :
         cnt=Entry.cert_count
         Entry.cert_count=cnt-1
     logging.error(Entry)

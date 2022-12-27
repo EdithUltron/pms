@@ -15,7 +15,7 @@
         {% for e,v in val.items %}
         <p>{{e}} : {{v}}</p>
         {% endfor %}
-        <button class="btn btn-danger delete-button" onclick="del('{{exp}}')">Delete</button>
+        <button class="btn btn-danger delete-button" onclick="del('{{exp}}','{{n}}')">Delete</button>
         <a class="btn btn-info " href="{% url url|add:'edit' id=exp  %}">Edit</a>
     </div><br>
 </div>
