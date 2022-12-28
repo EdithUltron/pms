@@ -1,4 +1,5 @@
 {% extends "base/adminbase.html" %}
+{%load static %}
 {% block title %}
 Admin Page
 {% endblock %}
@@ -14,6 +15,8 @@ Admin Page
     </div>
 
     <div class="d-flex">
+        <div class="col">
+
         <form method="post" action="{%url 'adminpage' %}">
             {% csrf_token %}
             <select name="year" class="form-select" aria-label="Default select example">
@@ -99,6 +102,12 @@ Admin Page
             <button type="submit" class="btn btn-primary">Save</button>
 
         </form>
+        </div>
+<div class="col">
+    {% for file in file_list %}
+    <a href="{% static file %}">{{ file }}</a><br>
+    {% endfor %}
+</div>
     </div>
 
     <div>

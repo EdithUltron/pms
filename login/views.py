@@ -5,6 +5,9 @@ from signup.models import Register
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
 from signup.models import AdminRegister,AdminRegisterForm
+import pandas as pd
+import os
+from Interactive_Portal.settings import BASE_DIR
 
 def loginaction(request):
     # logging.error("Inside Login")
@@ -122,7 +125,7 @@ def adminpage(request):
 
         year=request.POST.get("year")
         if(year):
-            stu=Register.objects.filter(department=adbranch,year=year)   
+            stu=Register.objects.filter(department=adbranch,year=year).order_by('roll')   
 
         for i in stu:
 
@@ -187,8 +190,16 @@ def adminpage(request):
 
             logging.error(form)
         
+        df = pd.DataFrame.from_dict(form)
 
-    return render(request,'login/adminpage.html',{'form':form})
+        static_folder = os.path.join(BASE_DIR, 'static')
+
+        # Save the dataframe to a CSV file
+        df.to_csv(os.path.join(static_folder,'dict_data.csv'), index=False)
+
+        file_list = [f for f in os.listdir(static_folder) if os.path.isfile(os.path.join(static_folder, f))]
+
+    return render(request,'login/adminpage.html',{'form':form,'file_list':file_list})
 
 
 def adminlogout(request):
