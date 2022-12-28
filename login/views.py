@@ -118,8 +118,8 @@ def adminpage(request):
     for i in stu.values():
         form[i["id"]]=i
         # p=i.get_data()
-
-    if request.method=="POST" and len(request.POST)>2:
+    year=request.POST.get("year",None)
+    if request.method=="POST" and year!=None and len(request.POST)>2:
         form={}
         logging.error(request.POST.__dict__)
         logging.error(request.POST.get("name"))
