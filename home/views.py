@@ -877,7 +877,21 @@ def linksedit(request,id):
 
 @is_login
 def additional(request):
-    return render(request, 'home/profile/additional.html')
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    inst=Additional.objects.get(register=reg)
+    logging.error(inst)
+    form={}
+    p=inst.getDetails()
+    logging.error(p)
+    # for e in p:
+        # p=e.getDetails()
+        # logging.error(p)
+        # form[e["id"]]=e
+    logging.error(form)
+    return render(request, 'home/profile/additional.html',{'form':p})
 
 @is_login
 def additionaledit(request):
