@@ -232,3 +232,15 @@ class Links(models.Model):
                 data[attr_name]=attr_value
         return data
     
+class Additional(models.Model):
+    register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
+    jvd=models.BooleanField(default=False)
+
+    def getDetails(self):
+        data={}
+        attributes = self.__dict__
+        excluded_attributes = ['_state', 'createdAt']
+        for attr_name, attr_value in attributes.items():
+            if attr_name not in excluded_attributes:
+                data[attr_name]=attr_value
+        return data

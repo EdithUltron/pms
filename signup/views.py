@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
 from .models import Register,RegisterForm,AdminRegister,AdminRegisterForm
 from login.models import Login
+from home.models import Additional
 
 
 def signaction(request):
@@ -45,6 +46,8 @@ def signaction(request):
                     logging.error(inst.get_id())
                     logging.error(password)
                     logging.error(inst.password)
+                    addi=Additional(register=inst)
+                    addi.save()
                     log=Login(register=inst,email=email,password=password)
                     log.save()
                     messages.success(request,f"Email registered")

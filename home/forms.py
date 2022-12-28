@@ -1,6 +1,6 @@
 from django import forms
 from .models import Experience,Education,Skills,Projects,Awards,Publications,Scholarships,Activities,Links
-from .models import Certificates
+from .models import Certificates,Additional
 
 class ExperienceForm(forms.ModelForm):
     class Meta:
@@ -174,6 +174,20 @@ class ActivitiesForm(forms.ModelForm):
 class LinksForm(forms.ModelForm):
     class Meta:
         model=Links
+        fields = "__all__"
+        exclude=["register"] 
+
+    
+    def __str__(self) -> str:
+        data={}
+        attributes = self.__dict__
+        for attr_name, attr_value in attributes.items():
+            data[attr_name]=attr_value
+        return data
+
+class AdditionalForm(forms.ModelForm):
+    class Meta:
+        model=Additional
         fields = "__all__"
         exclude=["register"] 
 

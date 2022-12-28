@@ -3,8 +3,8 @@ from login.models import loginForm,Login
 from signup.models import Register
 from .models import Experience,Education,Skills,Projects,Awards,Publications,Scholarships,Activities,Links
 from .forms import ExperienceForm,EducationForm,SkillsForm,ProjectsForm,AwardsForm,PublicationsForm,ScholarshipsForm,ActivitiesForm,LinksForm
-from .models import Certificates
-from .forms import CertificatesForm
+from .models import Certificates,Additional
+from .forms import CertificatesForm,AdditionalForm
 import logging
 from django.contrib import messages
 from functools import wraps
@@ -846,7 +846,6 @@ def linksadd(request):
     if request.method == 'POST':
         form = LinksForm(request.POST or None )
         if form.is_valid():
-            logging.error("Hello")
             inst=form.save(commit=False)
             inst.register=reg
             inst.save()
@@ -882,7 +881,28 @@ def additional(request):
 
 @is_login
 def additionaledit(request):
-    return render(request, 'home/profileedit/additionaledit.html')
+    id=request.session.get("id")
+    user=Login.objects.get(id=id)
+    context=user.get_data()["data"]
+    reg=Register.objects.get(id=context["reg_id"])
+    logging.error(request.POST)
+    inst=Additional.objects.get(register=reg)
+    # ins=Experience.objects.get(id)
+    if request.method == 'POST':
+        form = AdditionalForm(request.POST or None ,instance=inst)
+        if form.is_valid():
+            logging.error("Hello")
+            inst=form.save(commit=False)
+            inst.register=reg
+            inst.save()
+            logging.error(inst.getDetails())
+            return redirect('/profile/additional/')
+        else:
+            for field in form:
+                logging.error(field.errors)
+    else:
+        form = AdditionalForm(instance=inst)
+    return render(request, 'home/profileedit/additionaledit.html', {'form': form})
 
 
 # def profileaction(request):
