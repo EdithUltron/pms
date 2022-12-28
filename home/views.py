@@ -164,7 +164,7 @@ def detailsedit(request):
     if request.method=="POST":
         p=request.FILES.get("profile_pic",context['profile_pic'])
         logging.error(p)
-        reg.update(request.POST.get("aboutme",context['aboutme']),request.POST.get("fullname",context['fullname']),request.POST.get("roll",context['roll']),request.POST.get("email",context['email']),request.POST.get("department",context['department']),request.POST.get("phone",context['phone']),pp=p)
+        reg.update(request.POST.get("aboutme",context['aboutme']),request.POST.get("fullname",context['fullname']),request.POST.get("roll",context['roll']),request.POST.get("email",context['email']),request.POST.get("department",context['department']),request.POST.get("phone",context['phone']),request.POST.get("year",context['year']),pp=p)
         logging.error(request.POST.get("fullname",context['fullname']))
         reg.save()
         messages.success(request,f"Details Saved")
@@ -883,14 +883,14 @@ def additional(request):
     reg=Register.objects.get(id=context["reg_id"])
     inst=Additional.objects.get(register=reg)
     logging.error(inst)
-    form={}
+    # form={}
     p=inst.getDetails()
     logging.error(p)
     # for e in p:
         # p=e.getDetails()
         # logging.error(p)
         # form[e["id"]]=e
-    logging.error(form)
+    # logging.error(form)
     return render(request, 'home/profile/additional.html',{'form':p})
 
 @is_login

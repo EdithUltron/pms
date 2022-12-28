@@ -51,6 +51,15 @@
                                             <option value="it">IT</option>
                                           </select>
                                         </div>
+                                        <div class="form-group">
+                                          <label>Year</label>
+                                          <select class="form-control" name="year" {% if form.year %} value={{form.year}} {% endif %} required>
+                                            <option value="1">I</option>
+                                            <option value="2">II</option>
+                                            <option value="3">III</option>
+                                            <option value="4">IV</option>
+                                          </select>
+                                        </div>
                                           <div class="form-outline mb-4">
                                             <label class="form-label">Phone Number</label>
                                             <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" required/> 

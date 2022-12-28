@@ -1,12 +1,37 @@
 {% extends "base/homeBase.html" %}
+
 {% block title %}
 Additionals
 {% endblock %}
+
 {% block content %}
+
 <div class="jumbotron">
     <div class="d-flex justify-content-between ">
         <h1>Additionals Page</h1>
         <a class="btn btn-success my-2 " href="{%url 'additionaledit' %}">Add</a>
     </div>
 </div>
+
+
+{% if form|length > 0 %}
+
+<div class="card text-white bg-dark mb-5 mx-3 border-warning">
+    <div class="card-header  border-warning ">
+        {{exp}}
+    </div>
+    <div class="card-body">
+        {% for e,v in form.items %}
+        <p>{{e}} : {{v}}</p>
+        {% endfor %}
+    </div><br>
+</div>
+
+{%else%}
+
+<h1 class="text-center"> No Items found </h1>
+
+{%endif%}
+
 {% endblock %}
+

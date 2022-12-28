@@ -186,6 +186,11 @@ class LinksForm(forms.ModelForm):
         return data
 
 class AdditionalForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].required = False
     class Meta:
         model=Additional
         fields = "__all__"

@@ -235,6 +235,13 @@ class Links(models.Model):
 class Additional(models.Model):
     register=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
     jvd=models.BooleanField(default=False)
+    aadhar=models.CharField(max_length=12,default="",null=True,blank=True)
+    fathername = models.CharField("Father Name", max_length=255,default="", blank = True, null = True)
+    fatheraadhar = models.CharField("Father Aadhar", max_length=255,default="", blank = True, null = True)
+    mothername = models.CharField("Mother Name", max_length=255,default="", blank = True, null = True)
+    motheraadhar = models.CharField("Mother Aadhar", max_length=255,default="", blank = True, null = True)
+    
+    
 
     def getDetails(self):
         data={}

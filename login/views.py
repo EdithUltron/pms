@@ -86,6 +86,8 @@ def adminlogin(request):
 
         if id!=None and id.password==pwd:
             request.session["adminlogin"]=True
+            request.session["adminbranch"]=id.department
+            request.session["adminid"]=id.id
             return redirect("/adminpage/")
 
     cango=request.session.get("cango",False)
@@ -100,43 +102,101 @@ def adminpage(request):
     if not islog:
         return redirect("/adminlogin/")
 
-    if request.method=="POST":
+    adid=request.session.get("adminid")
+    adbranch=request.session.get("adminbranch")
+    logging.error(adbranch)
+    stu=Register.objects.filter(department=adbranch)
+    logging.error(stu)
+    # logging.error(stu.values())
+    logging.error(request.POST)
+    logging.error(len(request.POST))
+    form={}
+    for i in stu.values():
+        form[i["id"]]=i
+        # p=i.get_data()
+
+    if request.method=="POST" and len(request.POST)>2:
+        form={}
         logging.error(request.POST.__dict__)
         logging.error(request.POST.get("name"))
 
-        if(request.POST.get("name",None)):
-            pass
-        if(request.POST.get("roll",None)):
-            pass
-        if(request.POST.get("phone",None)):
-            pass
-        if(request.POST.get("email",None)):
-            pass
-        if(request.POST.get("about",None)):
-            pass
-        if(request.POST.get("edu",None)):
-            pass
-        if(request.POST.get("internships",None)):
-            pass
-        if(request.POST.get("jobs",None)):
-            pass
-        if(request.POST.get("skills",None)):
-            pass
-        if(request.POST.get("awards",None)):
-            pass
-        if(request.POST.get("sch",None)):
-            pass
-        if(request.POST.get("links",None)):
-            pass
+        year=request.POST.get("year")
+        if(year):
+            stu=Register.objects.filter(department=adbranch,year=year)   
+
+        for i in stu:
+
+            p=i.get_data()
+
+
+            if(request.POST.get("name",None)):
+                if form.get('name',None):
+                    form["name"].append(p["fullname"])
+                else:
+                    form["name"]=[]
+                    form["name"].append(p["fullname"])
+
+            if(request.POST.get("roll",None)):
+                if form.get('roll',None):
+                    form["roll"].append(p["roll"])
+                else:
+                    form["roll"]=[]
+                    form["roll"].append(p["roll"])
+            
+            if(request.POST.get("phone",None)):
+                if form.get('phone',None):
+                    form["phone"].append(p["phone"])
+                else:
+                    form["phone"]=[]
+                    form["phone"].append(p["phone"])
+            
+            if(request.POST.get("email",None)):
+                if form.get('email',None):
+                    form["email"].append(p["email"])
+                else:
+                    form["email"]=[]
+                    form["email"].append(p["email"])
+            
+            if(request.POST.get("about",None)):
+                if form.get('aboutme',None):
+                    form["aboutme"].append(p["aboutme"])
+                else:
+                    form["aboutme"]=[]
+                    form["aboutme"].append(p["aboutme"])
+            
+            if(request.POST.get("edu",None)):
+                pass
+            
+            if(request.POST.get("internships",None)):
+                pass
+            
+            if(request.POST.get("jobs",None)):
+                pass
+            
+            if(request.POST.get("skills",None)):
+                pass
+            
+            if(request.POST.get("awards",None)):
+                pass
+            
+            if(request.POST.get("sch",None)):
+                pass
+            
+            if(request.POST.get("links",None)):
+                pass
+
+            logging.error(form)
         
 
-    return render(request,'login/adminpage.html')
+    return render(request,'login/adminpage.html',{'form':form})
 
 
 def adminlogout(request):
     try:
       del request.session["cango"]
       del request.session["adminlogin"]
+      del request.session["adminbranch"]
+      del request.session["adminid"]
     #   del request.session["name"]
     except:
       pass

@@ -18,15 +18,22 @@ class Register(models.Model):
     department = models.CharField(max_length=5,null=False)
     aboutme=models.CharField(max_length=1000,default="Iam a Student",null=True,blank=True)
     profile_pic=models.ImageField(upload_to=upload_to,default="../media/profile_pic/demo_pic.png")
+    year = models.CharField("Year",max_length=5,null=False,default='1', choices=(
+            ( '1','I'),
+            ( '2','II'),
+            ( '3','III'),
+            ( '4','IV'),
+            ))
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
-    def update(self,am,fn,roll,email,dept,phone,pp):
+    def update(self,am,fn,roll,email,dept,phone,year,pp):
         self.aboutme=am
         self.fullname=fn
         self.roll=roll
         self.email=email
         self.phone=phone
         self.department=dept
+        self.year=year
 
         if self.profile_pic.name=="../media/profile_pic/demo_pic.png" or self.profile_pic.name=="":
             self.profile_pic=pp
@@ -50,10 +57,10 @@ class Register(models.Model):
         return self.id
 
     def get_data(self):
-        return {"reg_id":self.id,"aboutme":self.aboutme,"fullname":self.fullname,"email":self.email,"roll":self.roll,"phone":self.phone,"department":self.department,"profile_pic":self.profile_pic}
+        return {"reg_id":self.id,"year":self.year,"aboutme":self.aboutme,"fullname":self.fullname,"email":self.email,"roll":self.roll,"phone":self.phone,"department":self.department,"profile_pic":self.profile_pic}
     
     def getDetails(self):
-        return {"fullname":self.fullname,"aboutme":self.aboutme,"email":self.email,"roll":self.roll,"phone":self.phone,"department":self.department,"profile_pic":self.profile_pic}
+        return {"fullname":self.fullname,"year":self.year,"aboutme":self.aboutme,"email":self.email,"roll":self.roll,"phone":self.phone,"department":self.department,"profile_pic":self.profile_pic}
 
     def __str__(self):
         return self.fullname
@@ -84,13 +91,13 @@ class AdminRegister(models.Model):
     email=models.EmailField(max_length=150,unique=True,null=False)
     password=models.CharField(max_length=200,null=False)
     department = models.CharField(max_length=5,null=False,default='1', choices=(
-            ( '1','CSE'),
-            ( '2','IT'),
-            ( '3','ECE'),
-            ( '4','MECH'),
-            ( '5','EEE'),
-            ( '6','CIV'),
-            ( '7','MET'),
+            ( 'cse','CSE'),
+            ( 'it','IT'),
+            ( 'eee','ECE'),
+            ( 'mech','MECH'),
+            ( 'eee','EEE'),
+            ( 'civil','CIV'),
+            ( 'met','MET'),
             ))
     phone = models.CharField(max_length=20, blank = True, null = True)
     createdAt = models.DateTimeField("Created At", auto_now_add=True)

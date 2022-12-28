@@ -16,10 +16,17 @@ Admin Page
     <div class="d-flex">
         <form method="post" action="{%url 'adminpage' %}">
             {% csrf_token %}
+            <select name="year" class="form-select" aria-label="Default select example">
+                <option selected>Year</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+            </select>
             <div class="form-check">
                 <input class="form-check-input" name="name" type="checkbox" value="name" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
-                    name
+                    fullname
                 </label>
             </div>
             <div class="form-check">
@@ -93,6 +100,27 @@ Admin Page
 
         </form>
     </div>
+
+    <div>
+{% if form|length > 0 %}
+
+<div class="card text-white bg-dark mb-5 mx-3 border-warning">
+    <div class="card-header  border-warning ">
+        {{exp}}
+    </div>
+    <div class="card-body">
+        {% for e,v in form.items %}
+        <p>{{e}} : {{v}}</p>
+        {% endfor %}
+    </div><br>
+</div>
+
+{%else%}
+
+<h1 class="text-center"> No Items found </h1>
+
+{%endif%}
+</div>
 
 
                         {% if messages %}
