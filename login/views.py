@@ -100,7 +100,35 @@ def adminpage(request):
     if not islog:
         return redirect("/adminlogin/")
 
-    
+    if request.method=="POST":
+        logging.error(request.POST.__dict__)
+        logging.error(request.POST.get("name"))
+
+        if(request.POST.get("name",None)):
+            pass
+        if(request.POST.get("roll",None)):
+            pass
+        if(request.POST.get("phone",None)):
+            pass
+        if(request.POST.get("email",None)):
+            pass
+        if(request.POST.get("about",None)):
+            pass
+        if(request.POST.get("edu",None)):
+            pass
+        if(request.POST.get("internships",None)):
+            pass
+        if(request.POST.get("jobs",None)):
+            pass
+        if(request.POST.get("skills",None)):
+            pass
+        if(request.POST.get("awards",None)):
+            pass
+        if(request.POST.get("sch",None)):
+            pass
+        if(request.POST.get("links",None)):
+            pass
+        
 
     return render(request,'login/adminpage.html')
 

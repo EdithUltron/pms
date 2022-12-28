@@ -876,6 +876,15 @@ def linksedit(request,id):
     return render(request, 'home/profileedit/links.html', {'form': form})
 
 
+@is_login
+def additional(request):
+    return render(request, 'home/profile/additional.html')
+
+@is_login
+def additionaledit(request):
+    return render(request, 'home/profileedit/additionaledit.html')
+
+
 # def profileaction(request):
 #     context=Register.objects.all()
 #     return render(request,'home/profile.html',{"persons":context})

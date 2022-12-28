@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from urllib import response
 from django.shortcuts import redirect, render
 import logging
@@ -5,6 +7,7 @@ from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
 from .models import Register,RegisterForm,AdminRegister,AdminRegisterForm
 from login.models import Login
+
 
 def signaction(request):
 
@@ -111,7 +114,13 @@ def adminsignup(request):
             del request.session["cango"]
         logging.error(request.session)
         logging.error("Hello")
-        if key=="j1n2t3u4g5v6":
+        load_dotenv()
+
+        # You can now use the environment variables in your code
+        akey = os.getenv('KEY')
+        # logging.error(akey)
+        # logging.error(key)
+        if key==akey:
             request.session["cango"]=True
             return redirect("/adminlogin/")
         else:
