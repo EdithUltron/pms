@@ -114,6 +114,7 @@ def adminpage(request):
     logging.error(request.POST)
     logging.error(len(request.POST))
     form={}
+    file_list=[]
     for i in stu.values():
         form[i["id"]]=i
         # p=i.get_data()
