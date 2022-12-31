@@ -20,7 +20,7 @@ from home.views import details,detailsedit,education,educationedit,skills,skills
 from login.views import loginaction
 from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
 from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
-from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage
+from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage,facultylogin
 from signup.views import signaction,setting,changepassword,adminsignup
 
 from django.conf.urls.static import static
@@ -28,6 +28,7 @@ from django.conf import settings
 
 
 urlpatterns = [
+    path('facultylogin/',facultylogin,name="facultylogin"),
     path('admin/', admin.site.urls),
     path('adminlogin/', adminlogin , name="adminlogin"),
     path('adminsignup/', adminsignup , name="adminsignup"),

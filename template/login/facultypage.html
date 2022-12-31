@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% block title %}Student Login{% endblock title%}
+{% block title %}Faculty Login{% endblock title%}
 {% block content %}
 {% load static %}
 <section style="background-color: #eee;">
@@ -18,12 +18,12 @@
                       <form action="{% url 'login' %}" method="POST">{% csrf_token %}
                         <div class="form-outline mb-4">
                 <label class="form-label" for="form2Example11">Email</label>
-                          <input type="email"{% if form.email %} value={{form.email}} {% endif %} id="form2Example11" class="form-control" name="email"
+                          <input type="email"{% if form.email %} value={{form.email}} {% endif %} class="form-control" name="email"
                             placeholder="email" required/>
                         </div>
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example22">Password</label>
-                          <input  name="password" type="password" id="form2Example22" class="form-control validate" placeholder="Password" required title="8 characters minimum"/>
+                          <input  name="password" type="password"  class="form-control validate" placeholder="Password" required title="8 characters minimum"/>
                         </div>
                         <div class="text-center pt-1 mb-5 pb-1">
                           <button class="btn btn-primary btn-block fa-lg gradient-design mb-3" type="submit">Log
@@ -34,8 +34,6 @@
                           <p class="mb-0 me-2">Don't have an account?</p>&nbsp;&nbsp;
                           <a class="btn btn-outline-danger" name="sys" href="{%url 'signup'%}" role="button">Create new</a>
                         </div>    
-                        <a class="btn btn-outline-danger" name="sys" href="{%url 'adminlogin'%}" role="button">Admin Login</a>&nbsp;
-                        <a class="btn btn-outline-danger" name="sys" href="{%url 'facultylogin'%}" role="button">Faculty Login</a>
                       </form> 
                   {% if messages %}
                   <ul class="messages d-flex flex-column justify-content-center align-items-center">

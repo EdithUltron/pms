@@ -16,17 +16,22 @@ Additionals
 
 {% if form|length > 0 %}
 
-<div class="card text-white bg-dark mb-5 mx-3 border-warning">
-    <div class="card-header  border-warning ">
-        {{exp}}
-    </div>
-    <div class="card-body">
-        {% for e,v in form.items %}
-        <p>{{e}} : {{v}}</p>
-        {% endfor %}
-    </div><br>
-</div>
 
+
+<div class="col col-md-6 my-4 mx-auto">
+    <div class="card w-100">
+        <div class="card-header">
+            <h3>Scholarship</h3>
+        </div>
+        <div class="card-body">
+        {% for exp,val in form.items %}
+          <p>
+            {{exp}}:{{val}}
+          </p>
+        {% endfor %}
+        </div>
+    </div>
+</div>
 {%else%}
 
 <h1 class="text-center"> No Items found </h1>

@@ -885,6 +885,8 @@ def additional(request):
     logging.error(inst)
     # form={}
     p=inst.getDetails()
+    del p["id"]
+    del p["register_id"]
     logging.error(p)
     # for e in p:
         # p=e.getDetails()

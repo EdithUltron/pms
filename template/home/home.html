@@ -25,25 +25,40 @@
       <div class="col-md-12 d-sm-block" style=" align-items: center;"><div class=" row justify-content-lg-around m-5"><h1>Welcome {{ form.name }}</h1></div></div>
           <div class="col-md-12 d-lg-flex py-5 w-100 d-sm-block " style="height: 75vh;">
               <!-- <div class="container px-4"> -->
-                <div class="row gx-5 w-100 mx-auto my-lg-5 justify-content-between" style="height:fit-content;text-align: center;">
+                <div class="row gx-5 w-100 mx-auto my-lg-5">
                   <div class="col m-3">
-                    <div class="p-3 border bg-light"><a href="{%url 'mainprofile' %}" style="display: block;">
+                    <div class="p-3 btn btn-light w-100"><a href="{%url 'mainprofile' %}" style="display: block;">
                         <div class="card-body w-100 h-100" style="text-align: center;">
-                          <div class="btn text-center text-dark m-1"><strong>Profile Manager</strong></div>
+                          <div class="btn text-center text-primary m-1">Profile Manager</div>
                         </div>
                       </a></div>
                   </div>
+                  <!-- <div class="col text-center h-75">
+                    <div class="p-3 h-100">
+                      <a class="btn btn-outline-light w-100 h-100 " href="{%url 'mainprofile' %}">Profile Manager</a>
+                    </div>
+                  </div>
+                  <div class="col text-center h-75">
+                    <div class="p-3 h-100">
+                      <a class="btn btn-outline-light w-100 h-100 " href="#">Attendance</a>
+                    </div>
+                  </div>
+                  <div class="col text-center h-75">
+                    <div class="p-3 h-100">
+                      <a class="btn btn-outline-light w-100 h-100 " href="#">Feedback</a>
+                    </div>
+                  </div>                  -->
                   <div class="col m-3">
-                    <div class="p-3 border bg-light"><a href="#" style="display: block;">
+                    <div class="p-3 btn btn-light w-100"><a href="#" style="display: block;">
                         <div class="card-body " style="text-align: center;">
-                          <div class="btn text-center text-dark m-1 "><strong>Attendance</strong></div>
+                          <div class="btn text-center text-primary  m-1 ">Attendance</div>
                         </div>
                       </a></div>
                   </div>
                   <div class="col m-3">
-                    <div class="p-3 border bg-light"><a href="#" style="display: block;">
+                    <div class="p-3 btn btn-light w-100"><a href="#" style="display: block;">
                         <div class="card-body w-100 h-100" style="text-align: center;">
-                          <div class="btn text-center text-dark m-1"><strong>Feedback</strong></div>
+                          <div class="btn text-center text-primary m-1">Feedback</div>
                         </div>
                       </a></div>
                   </div>
