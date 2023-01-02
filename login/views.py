@@ -249,7 +249,7 @@ def facultylogin(request):
                     data=data.get_data()
                     request.session["name"]=data["fullname"]
                     # logging.error(messages)
-                    return redirect("/")
+                    return redirect("/facultyhome")
                 else:
                     messages.error(request,"Incorrect Password")
         else:

@@ -6,7 +6,7 @@ import logging
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
 from .models import Register,RegisterForm,AdminRegister,AdminRegisterForm,FacultyRegisterForm,FacultyRegister
-from login.models import Login
+from login.models import Login,FacultyLogin,Facultyloginform
 from home.models import Additional
 
 
@@ -155,10 +155,9 @@ def facultysignup(request):
             # logging.error(register.password)
             # logging.error(register.data)
             # logging.error(request)
+            logging.error(len(FacultyRegister.objects.filter(email=email).values()))
             if len(FacultyRegister.objects.filter(email=email).values())!=0:
-                logging.error(len(FacultyRegister.objects.filter(email=email).values()))
-                if len(FacultyRegister.objects.filter(email=email).values())!=0:
-                    messages.error(request,f"Email {email} already exists")
+                messages.error(request,f"Email {email} already exists")
                 
             else:
                 if register.is_valid():
@@ -174,11 +173,11 @@ def facultysignup(request):
                     logging.error(inst.password)
                     # addi=Additional(register=inst)
                     # addi.save()
-                    log=Login(register=inst,email=email,password=password)
+                    log=FacultyLogin(register=inst,email=email,password=password)
                     log.save()
                     messages.success(request,f"Email registered")
                     logging.error("SignUp Successful")
-                    return render(request,'login/facultylogin_page.html',{'form':log})
+                    return render(request,'login/facultypage.html',{'form':log})
                 else:
                     logging.error("not valid")
                     logging.error(register.is_valid())
