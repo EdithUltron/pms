@@ -241,13 +241,13 @@ def facultylogin(request):
                     messages.success(request,f"Login Successful")
                     # logging.error("Login Successful")
                     request.session["isflogin"]=True
-                    request.session["id"]=det[0]['id']
+                    request.session["fid"]=det[0]['id']
                     reg_id=det[0]["register_id"]
                     data=FacultyRegister.objects.get(id=reg_id)
                     # logging.error(reg_id)
                     # logging.error(data.get_data())
                     data=data.get_data()
-                    request.session["name"]=data["fullname"]
+                    request.session["fname"]=data["fullname"]
                     # logging.error(messages)
                     return redirect("/facultyhome")
                 else:
@@ -258,4 +258,16 @@ def facultylogin(request):
         login=Facultyloginform()
 
 
-    return render(request,'login/facultypage.html')
+    return render(request,'login/facultyloginpage.html')
+
+
+
+
+def facultylogout(request):
+    try:
+      del request.session["isflogin"]
+      del request.session["fid"]
+      del request.session["fname"]
+    except:
+      pass
+    return redirect("/facultylogin/")

@@ -921,9 +921,6 @@ def additionaledit(request):
     return render(request, 'home/profileedit/additionaledit.html', {'form': form})
 
 
-def facultyhome(request):
-    return render(request,"home/faculty/facultyhome.html")
-
 
 # def profileaction(request):
 #     context=Register.objects.all()

@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path,include
 from home.views import details,detailsedit,education,educationedit,skills,skillsedit,experience,experienceedit,projects,projectsedit,awards,awardsedit,publications,publicationsedit,scholarships,scholarshipsedit,activities,activitiesedit,links,linksedit
 # , highereducationaction, placementaction, profileaction
-from login.views import loginaction
-from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd,facultyhome
+from login.views import loginaction,facultylogout
+from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
+from home.facultyviews import facultyhome
 from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
 from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage,facultylogin
 from signup.views import signaction,setting,changepassword,adminsignup,facultysignup
@@ -29,6 +30,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('facultylogin/',facultylogin,name="facultylogin"),
+    path('facultylogout/',facultylogout,name="facultylogout"),
     path('facultysignup/',facultysignup,name="facultysignup"),
     path('admin/', admin.site.urls),
     path('adminlogin/', adminlogin , name="adminlogin"),
