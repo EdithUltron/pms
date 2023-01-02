@@ -50,3 +50,14 @@ class Adminloginform(forms.ModelForm):
         widgets = {
             'password':forms.PasswordInput(),
         }
+
+class Facultyloginform(forms.Form):
+    class Meta:
+        model=Login
+        fields = "__all__"
+        widgets = {
+            'password':forms.PasswordInput()
+        }
+    
+    def __str__(self) -> str:
+        return "Faculty Login form"

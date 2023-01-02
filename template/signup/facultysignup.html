@@ -1,0 +1,90 @@
+{% extends "base/base.html"%}
+{% block title %}SignUp {% endblock title %}
+{% load static %}
+{% block content %}
+<section  style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-xl-10 pl-0 pr-0">
+                <div class="card rounded-3">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                          
+                            <h1 class="mt-5 pb-1 gradient-text text-center"><b>Sign Up</b></h1>
+                          
+                            <div class="card-body p-md-5 mx-md-4 text-center" style="margin:100px auto;"> <!--style="margin:200px auto" -->
+                                <!-- <div class="center">                                       -->
+                                    <img src="{% static 'login/logo.png' %}" class="img-fluid" alt="Responsive image" style="width:85%">
+                                <!-- </div>                                   -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-center gradient-design text-black">
+                            <div class="card-body p-md-5 mx-md-4">                                
+                              <form method="POST" action="{% url 'signup' %}">
+                                {% csrf_token %}
+                                <div class="form-outline mb-4">
+                                <label class="form-label">Full Name</label>
+                                  <input {% if form.fullname %} value={{form.fullname}} {% endif %} type="text" name="fullname" class="form-control"
+                                    placeholder="Full Name" required/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                  <label class="form-label">Faculty ID</label>
+                                    <input {% if form.roll %} value={{form.roll}} {% endif %} type="text" name="roll" class="form-control"
+                                      placeholder="Faculty ID" required/>
+                                  </div>
+                                  <div class="form-outline mb-4">
+                                    <label class="form-label">Email</label>
+
+                                    <input {% if form.email %} value={{form.email}} {% endif %} type="email" name="email" class="form-control"
+                                      placeholder="email@gmail.com" required/>
+
+                                        </div>                                       
+                                        <div class="form-group">
+                                          <label>Department</label>
+                                          <select class="form-control" name="department" {% if form.department %} value={{form.department}} {% endif %} required>
+                                            <option value="cse">CSE</option>
+                                            <option value="ece">ECE</option>
+                                            <option value="eee">EEE</option>
+                                            <option value="mech">MECH</option>
+                                            <option value="civil">CIVIL</option>
+                                            <option value="met">MET</option>
+                                            <option value="it">IT</option>
+                                          </select>
+                                        </div>
+                                          <div class="form-outline mb-4">
+                                            <label class="form-label">Phone Number</label>
+                                            <input {% if form.phone %} value={{form.phone}} {% endif %} type="tel" name="phone" class="form-control form-control" pattern="[0-9]{10}" placeholder="phone number" required/> 
+                                          </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" >Password</label>
+                                      <input type="password" name="password" class="form-control" placeholder="Password" required/>
+                                    </div> 
+                                    <div class="form-outline mb-4">
+                                      <label class="form-label" >Confirm Password</label>
+                                    <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required/>
+                                  </div> 
+                                    <div class="text-center pt-1 mb-5 pb-1">
+                                      <button class="btn btn-light btn-block fa-lg gradient-design mb-3 btn-outline-light" type="submit">Register</button>       
+                                    </div>
+                                    {% if messages %}
+                                    <ul class="messages d-flex flex-column justify-content-center align-items-center">
+                                      {% for message in messages %}
+                                      <p {% if message.tags %} class="w-100 pl-3 mx-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
+                                      {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                      <p class="mb-0 me-2">Already have an account? </p>&nbsp;&nbsp;
+                                      <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-danger" style="color:white">Login here</button></a>
+                                    </div>    
+                                  </form>  
+                                  
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+{% endblock content %}

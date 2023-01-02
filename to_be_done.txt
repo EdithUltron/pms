@@ -5,3 +5,7 @@ changes in the UI
 Main Profile
 Resume Build
 Profile page change - UI and URL
+
+#New Additionals
+
+Faculty Db

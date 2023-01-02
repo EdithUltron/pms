@@ -13,7 +13,7 @@
                   <div class="text-center">
                   <img src="{% static 'login/logo.png' %}"
                       style="width: 185px;" alt="logo"> 
-                    <h4 class="mt-1 mb-5 pb-1">JNTU-GV LOGIN PORTAL</h4>
+                    <h4 class="mt-1 mb-5 pb-1">JNTU-GV FACULTY LOGIN</h4>
                       </div>
                       <form action="{% url 'login' %}" method="POST">{% csrf_token %}
                         <div class="form-outline mb-4">
@@ -32,7 +32,7 @@
                         </div>   
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Don't have an account?</p>&nbsp;&nbsp;
-                          <a class="btn btn-outline-danger" name="sys" href="{%url 'signup'%}" role="button">Create new</a>
+                          <a class="btn btn-outline-danger" name="sys" href="{%url 'facultysignup'%}" role="button">Create new</a>
                         </div>    
                       </form> 
                   {% if messages %}
