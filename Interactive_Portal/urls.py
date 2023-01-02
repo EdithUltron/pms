@@ -18,7 +18,7 @@ from django.urls import path,include
 from home.views import details,detailsedit,education,educationedit,skills,skillsedit,experience,experienceedit,projects,projectsedit,awards,awardsedit,publications,publicationsedit,scholarships,scholarshipsedit,activities,activitiesedit,links,linksedit
 # , highereducationaction, placementaction, profileaction
 from login.views import loginaction
-from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
+from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd,facultyhome
 from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
 from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage,facultylogin
 from signup.views import signaction,setting,changepassword,adminsignup,facultysignup
@@ -39,6 +39,7 @@ urlpatterns = [
     path('logout/',logoutaction,name="logout"),
     path('signup/',signaction,name="signup"),
     path('',home,name="home"),
+    path('facultyhome/',facultyhome,name="facultyhome"),
     path('mainprofile/',mainProfile,name="mainprofile"),
     path('mainprofile/settings/',setting,name="setting"),
     path('mainprofile/settings/changepassword/',changepassword,name="changepassword"),

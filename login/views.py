@@ -1,10 +1,10 @@
 from django.shortcuts import HttpResponse, redirect, render
-from .models import loginForm,Login,Adminloginform
+from .models import loginForm,Login,Adminloginform,FacultyLogin,Facultyloginform
 import logging
 from signup.models import Register
 from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages
-from signup.models import AdminRegister,AdminRegisterForm
+from signup.models import AdminRegister,AdminRegisterForm,FacultyRegister,FacultyRegisterForm
 import pandas as pd
 import os
 from Interactive_Portal.settings import BASE_DIR
@@ -216,46 +216,46 @@ def adminlogout(request):
 
 
 def facultylogin(request):
-    # islog=request.session.get("islogin",False)
+    islog=request.session.get("isflogin",False)
     
     
-    # if islog:
-    #     logging.error("Logged in already")
-    #     return redirect("/")
+    if islog:
+        logging.error("Logged in already")
+        return redirect("/facultyhome")
 
-    # if request.method =="POST" :
-    #     email=request.POST['email']
-    #     login={'email':email} 
-    #     # password=make_password(request.POST['password'])
-    #     det=Login.objects.filter(email=email).values()
-    #     logging.error(det)
+    if request.method =="POST" :
+        email=request.POST['email']
+        login={'email':email} 
+        # password=make_password(request.POST['password'])
+        det=FacultyLogin.objects.filter(email=email).values()
+        logging.error(det)
 
-    #     if len(det)!=0:
+        if len(det)!=0:
 
-    #         # logging.error(det)
-    #         # logging.error(det[0])
-    #         # logging.error(det.register)
-    #         if email==det[0]["email"]:
-    #             password=det[0]['password']
-    #             if check_password(request.POST["password"],password):   
-    #                 messages.success(request,f"Login Successful")
-    #                 # logging.error("Login Successful")
-    #                 request.session["islogin"]=True
-    #                 request.session["id"]=det[0]['id']
-    #                 reg_id=det[0]["register_id"]
-    #                 data=Register.objects.get(id=reg_id)
-    #                 # logging.error(reg_id)
-    #                 # logging.error(data.get_data())
-    #                 data=data.get_data()
-    #                 request.session["name"]=data["fullname"]
-    #                 # logging.error(messages)
-    #                 return redirect("/")
-    #             else:
-    #                 messages.error(request,"Incorrect Password")
-    #     else:
-    #         messages.error(request,f"Email {email} does not exist, Do signup first")
-    # else:
-    #     login=loginForm()
+            # logging.error(det)
+            # logging.error(det[0])
+            # logging.error(det.register)
+            if email==det[0]["email"]:
+                password=det[0]['password']
+                if check_password(request.POST["password"],password):   
+                    messages.success(request,f"Login Successful")
+                    # logging.error("Login Successful")
+                    request.session["isflogin"]=True
+                    request.session["id"]=det[0]['id']
+                    reg_id=det[0]["register_id"]
+                    data=FacultyRegister.objects.get(id=reg_id)
+                    # logging.error(reg_id)
+                    # logging.error(data.get_data())
+                    data=data.get_data()
+                    request.session["name"]=data["fullname"]
+                    # logging.error(messages)
+                    return redirect("/")
+                else:
+                    messages.error(request,"Incorrect Password")
+        else:
+            messages.error(request,f"Email {email} does not exist, Do signup first")
+    else:
+        login=Facultyloginform()
 
 
     return render(request,'login/facultypage.html')
