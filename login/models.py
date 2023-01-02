@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from signup.models import Register,AdminRegister
+from signup.models import Register,AdminRegister,FacultyRegister
 
 # Create your models here.
 class Login(models.Model):
@@ -50,6 +50,33 @@ class Adminloginform(forms.ModelForm):
         widgets = {
             'password':forms.PasswordInput(),
         }
+
+
+class FacultyLogin(models.Model):
+    register=models.ForeignKey(FacultyRegister,on_delete=models.CASCADE)
+    email=models.EmailField(max_length=150,unique=True,null=False)
+    password=models.CharField(max_length=200,null=False)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.email=self.register.email
+        self.password=self.register.password
+
+    def insert(self,email,password):
+        self.email=email
+        self.password=password
+
+    def get_data(self):
+        data=self.register.get_data()
+        return {"email":self.email,"data":data}
+
+    def getDetails(self):
+        data=self.register.getDetails()
+        return {"email":self.email,"data":data}
+
+    def __str__(self) -> str:
+        return self.email
+
 
 class Facultyloginform(forms.Form):
     class Meta:
