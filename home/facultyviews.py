@@ -11,3 +11,6 @@ from django.contrib.contenttypes.models import ContentType
 def facultyhome(request):
     facultylogout(request)
     return render(request,"home/faculty/facultyhome.html")
+
+def facultymainprofile(request):
+    return render(request,"home/faculty/facultymainprofile.html")

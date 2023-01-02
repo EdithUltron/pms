@@ -19,7 +19,7 @@ from home.views import details,detailsedit,education,educationedit,skills,skills
 # , highereducationaction, placementaction, profileaction
 from login.views import loginaction,facultylogout
 from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
-from home.facultyviews import facultyhome
+from home.facultyviews import facultyhome,facultymainprofile
 from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
 from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage,facultylogin
 from signup.views import signaction,setting,changepassword,adminsignup,facultysignup
@@ -42,6 +42,7 @@ urlpatterns = [
     path('signup/',signaction,name="signup"),
     path('',home,name="home"),
     path('facultyhome/',facultyhome,name="facultyhome"),
+    path('facultymainprofile/',facultymainprofile,name="facultymainprofile"),
     path('mainprofile/',mainProfile,name="mainprofile"),
     path('mainprofile/settings/',setting,name="setting"),
     path('mainprofile/settings/changepassword/',changepassword,name="changepassword"),

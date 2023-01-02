@@ -29,20 +29,20 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light" ><a style="text-decoration: none; color:black;" href="/mainprofile/">Profile Manager</a></div>
+            <div class="sidebar-heading border-bottom bg-light" ><a style="text-decoration: none; color:black;" href="/facultymainprofile/">Profile Manager</a></div>
             <div class="list-group list-group-flush btn-group btn-group-toggle">
-                <a class="list-group-item list-group-item-action button btn-primary list-group-item-light p-3"href="{%url 'mainprofile' %}">Home Page</a>
+                <a class="list-group-item list-group-item-action button btn-primary list-group-item-light p-3"href="{%url 'facultymainprofile' %}">Home Page</a>
                 <a class="list-group-item list-group-item-action button btn-primary list-group-item-light p-3"href="{%url 'details' %}">Basic Details</a>
                 <a class="list-group-item list-group-item-action btn-primary  list-group-item-light p-3" href="{%url 'education' %}">Education</a>
                 <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'experience' %}">Experience</a>
                 <a class="list-group-item list-group-item-action btn-primary  list-group-item-light p-3" href="{%url 'skills' %}">Skills</a>
-                <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'projects' %}">Projects</a>
+                <!-- <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'projects' %}">Projects</a> -->
                 <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'awards' %}">Honors/Awards</a>
                 <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'publications' %}">Publications</a>
-                <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'scholarships' %}">Scholarships</a>
+                <!-- <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'scholarships' %}">Scholarships</a> -->
                 <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'activities' %}">Other Activities</a>
                 <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'links' %}">Links</a>
-                <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'additional' %}">For College</a>
+                <!-- <a class="list-group-item list-group-item-action btn-primary list-group-item-light p-3" href="{%url 'additional' %}">For College</a> -->
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -58,7 +58,7 @@
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav nav-tabs nav-justified nav-pills ms-auto mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="{%url 'home' %}">Home</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{%url 'facultyhome' %}">Home</a></li>
                             <li class="nav-item active"><a class="nav-link" href="{%url 'setting' %}">Settings</a></li>
                             <li class="nav-item active"><a class="nav-link " href="{% url 'logout' %} ">LogOut</a></li>
                             <!-- <li class="nav-item dropdown">
