@@ -15,7 +15,7 @@
                       style="width: 185px;" alt="logo"> 
                     <h4 class="mt-1 mb-5 pb-1">JNTU-GV FACULTY LOGIN</h4>
                       </div>
-                      <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+                      <form action="{% url 'facultylogin' %}" method="POST">{% csrf_token %}
                         <div class="form-outline mb-4">
                 <label class="form-label" for="form2Example11">Email</label>
                           <input type="email"{% if form.email %} value={{form.email}} {% endif %} class="form-control" name="email"
