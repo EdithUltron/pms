@@ -172,6 +172,7 @@ def detailsedit(request):
 
     return render(request,'home/profileedit/details.html',{"form":context})
 
+@is_login
 def certificates(request,name,id):
     if name=="exp":
         content_type = ContentType.objects.get_for_model(Experience)
@@ -194,6 +195,7 @@ def certificates(request,name,id):
     # logging.error(form)
     return render(request, 'home/profile/certificates.html', {'form': form,'name':name,'id':id})
 
+@is_login
 def certificatesadd(request,name,id):
     # content_type=None
     if name=="exp":
@@ -243,7 +245,7 @@ def certificatesadd(request,name,id):
 
     return render(request, 'home/profileedit/certificates.html', {'form':form,'name':name,'id':id})
 
-
+@is_login
 def certificateadd(request,name,id,det):
     # content_type=None
     fname="Certificate"
