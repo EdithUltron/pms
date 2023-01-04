@@ -243,6 +243,59 @@ def certificatesadd(request,name,id):
 
     return render(request, 'home/profileedit/certificates.html', {'form':form,'name':name,'id':id})
 
+
+def certificateadd(request,name,id,det):
+    # content_type=None
+    fname="Certificate"
+    if name=="exp":
+        content_type = ContentType.objects.get_for_model(Experience)
+    if name=="edu":
+        content_type = ContentType.objects.get_for_model(Education)
+        if det=="tc":
+            fname="Transfer Certificate"
+    if name=="hon":
+        content_type = ContentType.objects.get_for_model(Awards)
+    if name=="pub":
+        content_type = ContentType.objects.get_for_model(Publications)
+    if name=="sch":
+        content_type = ContentType.objects.get_for_model(Scholarships)
+
+    inst=content_type.get_object_for_this_type(pk=id)
+
+    if request.method == 'POST':
+        if name!="edu":
+            cnt=inst.cert_count
+        else:
+            cnt=0
+        form = CertificatesForm(request.POST, request.FILES)
+        if cnt < 2:
+                # Get the content type for the Activity model
+                # content_type = ContentType.objects.get_for_model(Activity)
+                # Create a new Certificate object
+            if form.is_valid():
+                certificate = form.save(commit=False)
+                certificate.content_type = content_type
+                # certificate.content_object = inst
+                if name!="edu":
+                    inst.cert_count=cnt+1
+                inst.save()
+                certificate.object_id = id
+                logging.error("#########")
+                logging.error(content_type)
+                certificate.save()
+                logging.error(certificate.getDetails())
+                return redirect('/profile/certificates/'+name+"/"+id+"/")
+        else:
+            logging.error("Error in cert upload")
+            logging.error(cnt)
+            logging.error(type(cnt))
+            logging.error(inst.cert_count)
+            messages.error(request,"Max 2 Documents Can Be Uploaded")
+    else:
+        form = CertificatesForm(initial={'certificate_name': fname})
+
+    return render(request, 'home/profileedit/certificates.html', {'form':form,'name':name,'id':id})
+
 @is_login
 def certificatesedit(request,name,id,cid):
 

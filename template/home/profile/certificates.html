@@ -6,11 +6,13 @@ Certificates
 
 <div class="jumbotron">
     <div class="d-flex justify-content-between ">
-        <h1>Certificates Page</h1>
         <div>
-            <a class="btn btn-success my-2 " href="{%url 'certificatesadd' name=name id=id %}">Add</a>
+            <a class="btn btn-success my-2 " href="{%url 'certificateadd' name=name id=id det="tc" %}">Add</a>
         {%if name == "hon" %}
         <a class="btn btn-success my-2" href="{%url 'awards' %}">Back</a>
+        {%endif%}
+        {%if name == "edu" %}
+        <a class="btn btn-success my-2" href="{%url 'education' %}">Back</a>
         {%endif%}
         {%if name == "exp" %}
         <a class="btn btn-success my-2" href="{%url 'experience' %}">Back</a>
@@ -21,8 +23,9 @@ Certificates
         {%if name == "sch" %}
         <a class="btn btn-success my-2" href="{%url 'scholarships' %}">Back</a>
         {%endif%}
-        </div>
-        
+    </div>
+    
+    <h1>Certificates Page</h1>
     </div>
 </div>
 

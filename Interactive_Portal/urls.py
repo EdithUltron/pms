@@ -22,7 +22,7 @@ from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projec
 from home.facultyviews import facultyhome,facultymainprofile,facultydetails,facultyeducation
 from home.facultyviews import facultydetailsedit,facultyeducationedit
 from home.facultyviews import facultyeducationadd
-from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
+from home.views import home,mainProfile,certificatesadd,certificateadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
 from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage,facultylogin
 from signup.views import signaction,setting,changepassword,adminsignup,facultysignup
 
@@ -89,6 +89,7 @@ urlpatterns = [
     path('profileedit/additional/',additionaledit,name="additionaledit"),
     path('profileadd/certificates/<str:name>/<str:id>/',certificatesadd,name="certificatesadd"),
     path('profile/certificates/<str:name>/<str:id>/',certificates,name="certificates"),
+    path('profile/certificates/<str:name>/<str:id>/<str:det>',certificateadd,name="certificateadd"),
     path('profile/certificates/<str:name>/<str:id>/<str:cid>',certificatesedit,name="certificatesedit"),
 
     # path('profile/',profileaction,name="profile"),

@@ -47,9 +47,13 @@ class CertificatesForm(forms.ModelForm):
     #     super(CertificatesForm, self).__init__(*args, **kwargs)
     #     self.fields['certificate_name'].initial = certificate_name
 
+
     class Meta:
         model=Certificates
         fields = ['certificate_name', 'certificate_file']
+        widgets={
+            'certificate_name':forms.TextInput(attrs={'disabled': 'disabled'})
+        }
     
     # def save(self, commit=True):
     #     # Save the original certificate_file field value
