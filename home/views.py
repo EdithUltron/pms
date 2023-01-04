@@ -362,14 +362,7 @@ def educationedit(request,id):
 @is_login
 def experience(request):
 
-    if request.method == 'POST':
-        logging.error("***********")
-        data = json.loads(request.body)
-        name=data['name']
-        p = data['id']
-        logging.error(p)
-        logging.error(name)
-        return delete_entry(request,p,name)
+
 
     id=request.session.get("id")
     user=Login.objects.get(id=id)
@@ -425,6 +418,17 @@ def experienceadd(request):
     else:
         form = ExperienceForm()
     return render(request, 'home/profileedit/experience.html', {'form': form})
+
+@is_login
+def profiledelete(request):
+    if request.method == 'POST':
+        logging.error("***********")
+        data = json.loads(request.body)
+        name=data['name']
+        p = data['id']
+        logging.error(p)
+        logging.error(name)
+        return delete_entry(request,p,name)
 
 def delete_entry(request, p , name):
     logging.error(p)
