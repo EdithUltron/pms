@@ -1,3 +1,4 @@
+from django.db import models
 from django import forms
 from .models import Experience,Education,Skills,Projects,Awards,Publications,Scholarships,Activities,Links
 from .models import Certificates,Additional
@@ -14,6 +15,10 @@ class ExperienceForm(forms.ModelForm):
             'location': forms.TextInput(attrs={'placeholder': 'Location of the company'}),
             # 'register': forms.HiddenInput(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(ExperienceForm, self ).__init__(*args, **kwargs)
+        self.fields['certificate'] = forms.FileField(required=False)
 
     def __str__(self) -> str:
         data={}
@@ -36,6 +41,11 @@ class ExperienceForm(forms.ModelForm):
         return self.cleaned_data
 
 class CertificatesForm(forms.ModelForm):
+
+    # def __init__(self, *args, **kwargs):
+    #     certificate_name = kwargs.pop('certificate_name', None)
+    #     super(CertificatesForm, self).__init__(*args, **kwargs)
+    #     self.fields['certificate_name'].initial = certificate_name
 
     class Meta:
         model=Certificates
@@ -80,6 +90,10 @@ class EducationForm(forms.ModelForm):
         for attr_name, attr_value in attributes.items():
             data[attr_name]=attr_value
         return data
+    
+    def __init__(self, *args, **kwargs):
+        super(EducationForm, self ).__init__(*args, **kwargs)
+        self.fields['certificate'] = forms.FileField(required=False)
 
         
 

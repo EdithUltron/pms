@@ -175,15 +175,17 @@ def detailsedit(request):
 def certificates(request,name,id):
     if name=="exp":
         content_type = ContentType.objects.get_for_model(Experience)
+    if name=="edu":
+        content_type = ContentType.objects.get_for_model(Education)
     if name=="hon":
         content_type = ContentType.objects.get_for_model(Awards)
     if name=="pub":
         content_type = ContentType.objects.get_for_model(Publications)
     if name=="sch":
         content_type = ContentType.objects.get_for_model(Scholarships)
-    inst=content_type.get_object_for_this_type(pk=id)
+    # inst=content_type.get_object_for_this_type(pk=id)
     exp=Certificates.objects.filter(content_type=content_type,object_id=id)
-    # logging.error(exp)
+    # logging.error(exp.__dict__)
     form={}
     for e in exp:
         p=e.getDetails()
@@ -196,6 +198,8 @@ def certificatesadd(request,name,id):
     # content_type=None
     if name=="exp":
         content_type = ContentType.objects.get_for_model(Experience)
+    if name=="edu":
+        content_type = ContentType.objects.get_for_model(Education)
     if name=="hon":
         content_type = ContentType.objects.get_for_model(Awards)
     if name=="pub":
@@ -206,7 +210,10 @@ def certificatesadd(request,name,id):
     inst=content_type.get_object_for_this_type(pk=id)
 
     if request.method == 'POST':
-        cnt=inst.cert_count
+        if name!="edu":
+            cnt=inst.cert_count
+        else:
+            cnt=0
         form = CertificatesForm(request.POST, request.FILES)
         if cnt < 2:
                 # Get the content type for the Activity model
@@ -216,7 +223,8 @@ def certificatesadd(request,name,id):
                 certificate = form.save(commit=False)
                 certificate.content_type = content_type
                 # certificate.content_object = inst
-                inst.cert_count=cnt+1
+                if name!="edu":
+                    inst.cert_count=cnt+1
                 inst.save()
                 certificate.object_id = id
                 logging.error("#########")
@@ -290,12 +298,41 @@ def educationadd(request):
     logging.error(request.POST)
     # ins=Experience.objects.get(id)
     if request.method == 'POST':
-        form = EducationForm(request.POST or None )
+        form = EducationForm(request.POST or None ,request.FILES)
+        p=request.FILES.get("certificate",None)
+        logging.error("......")
+        logging.error(dir(request.FILES))
+        logging.error(request.FILES.get("certificate",None))
         if form.is_valid():
             logging.error("Hello")
             inst=form.save(commit=False)
             inst.register=reg
             inst.save()
+            if p:
+                logging.error(p)
+                logging.error("-------++++++-------")
+                post_values = request.POST.copy()
+                post_values['certificate_name']="Study Certificate"
+                post_files = request.FILES.copy()
+                post_files['certificate_file']=p
+                cform = CertificatesForm(post_values,post_files)
+                content_type = ContentType.objects.get_for_model(Education)
+                # logging.error(cform.data.__dict__)
+                if cform.is_valid():
+                    certificate = cform.save(commit=False)
+                    # certificate.certificate_file=request.FILES.get("certificate",None)
+                    # certificate.certificate_name="StudyCertificate"
+                    certificate.content_type = content_type
+                    certificate.object_id = inst.id
+                    logging.error("#########")
+                    logging.error(content_type)
+                    certificate.save()
+                    logging.error(inst.id)
+                    # logging.error(",,,,,,,,,,,,,,,")
+                    logging.error(certificate.getDetails())
+                else:
+                    # form is invalid, print errors
+                    logging.error(cform.errors)
             logging.error(inst.getDetails())
             return redirect('/profile/education')
         else:

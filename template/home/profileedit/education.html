@@ -13,12 +13,12 @@
 <div class="card py-5">
     <div class="d-flex align-items-center  text-black card border-0 rounded-3">
         <div class="card-body p-sm-1 mx-sm-1 p-md-5 border border-dark col-lg-6 col-sm-12">
-            <form method="post" action="{% url 'educationadd' %}">
+            <form method="post" enctype="multipart/form-data" action="{% url 'educationadd' %}" >
                 <div class="form-outline mb-4">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <label class="form-label">Certificate Name</label>
-                    <input type="file" class="form-control" name="certificate" placeholder="Certificate" required/>
+                    <!-- <label class="form-label">Certificate Name</label>
+                    <input type="file" class="form-control" name="certificate" placeholder="Certificate" required/> -->
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
@@ -26,4 +26,10 @@
     </div>
 </div>
 
-{% endblock content%}
+{% endblock %}
+{% block scripts %}
+<script>
+    const input = document.getElementById('id_certificate');
+    input.required=false;
+</script>
+{% endblock %}
