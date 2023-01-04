@@ -1,0 +1,29 @@
+{% extends "base/facultybase.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Education {% endblock title %}
+{% block content %}
+
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <a class="btn btn-success my-2" href="{%url 'facultyeducation' %}">Back</a>
+        <h1>Update Education</h1>
+    </div>
+</div>
+
+<div class="card py-5">
+    <div class="d-flex align-items-center  text-black card border-0 rounded-3">
+        <div class="card-body p-sm-1 mx-sm-1 p-md-5 border border-dark col-lg-6 col-sm-12">
+            <form method="post" action="{% url 'facultyeducationadd' %}">
+                <div class="form-outline mb-4">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <label class="form-label">Certificate Name</label>
+                    <input type="file" class="form-control" name="certificate" placeholder="Certificate" required/>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}

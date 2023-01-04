@@ -1,0 +1,45 @@
+{% extends "base/facultybase.html" %}
+{% block title %}
+Education
+{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <h1>Education Page</h1>
+        <div>
+            <a class="btn btn-success my-2 " href="{%url 'facultyeducationadd' %}">Add</a>
+            <a class="btn btn-success my-2" href="{%url 'facultymainprofile' %}">Back</a>
+        </div>
+    </div>
+</div>
+{% if form|length > 0 %}
+{% for exp,val in form.items %}
+<div class="col col-md-6 my-4 mx-auto">
+
+    <div class="card w-100">
+        <div class="card-header">
+            <h3>{{val.name}}</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <h5>Location:&nbsp&nbsp{{val.location}}</h5><br><h5>Course:&nbsp&nbsp{{val.course}}</h5><br><h5>Start Date :&nbsp&nbsp {{val.startdate}}</h5><br><h5>End Date:&nbsp&nbsp {{val.enddate}} </h5><br>
+          </p>
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-danger delete-button" onclick="del('{{exp}}','edu')">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-info" href="{%url 'educationedit' id=exp %}">Edit</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+
+{%else%}
+
+<h1 class="text-center"> No Items found </h1>
+
+{%endif%}
+{% endblock %}

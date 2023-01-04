@@ -19,7 +19,9 @@ from home.views import details,detailsedit,education,educationedit,skills,skills
 # , highereducationaction, placementaction, profileaction
 from login.views import loginaction,facultylogout
 from home.views import activitiesadd,educationadd,skillsadd,experienceadd,projectsadd,awardsadd,publicationsadd,scholarshipsadd,linksadd
-from home.facultyviews import facultyhome,facultymainprofile
+from home.facultyviews import facultyhome,facultymainprofile,facultydetails,facultyeducation
+from home.facultyviews import facultydetailsedit,facultyeducationedit
+from home.facultyviews import facultyeducationadd
 from home.views import home,mainProfile,certificatesadd,certificates,certificatesedit,profile,portfolio,additional,additionaledit
 from login.views import loginaction,logoutaction,adminlogout,adminlogin,adminpage,facultylogin
 from signup.views import signaction,setting,changepassword,adminsignup,facultysignup
@@ -32,6 +34,11 @@ urlpatterns = [
     path('facultylogin/',facultylogin,name="facultylogin"),
     path('facultylogout/',facultylogout,name="facultylogout"),
     path('facultysignup/',facultysignup,name="facultysignup"),
+    path('fprofile/facultydetails/',facultydetails,name="facultydetails"),
+    path('fprofileedit/facultydetails/',facultydetailsedit,name="facultydetailsedit"),
+    path('fprofile/facultyeducation/',facultyeducation,name="facultyeducation"),
+    path('fprofileadd/facultyeducation/',facultyeducationadd,name="facultyeducationadd"),
+    path('fprofileedit/education/<str:id>/',facultyeducationedit,name="facultyeducationedit"),
     path('admin/', admin.site.urls),
     path('adminlogin/', adminlogin , name="adminlogin"),
     path('adminsignup/', adminsignup , name="adminsignup"),

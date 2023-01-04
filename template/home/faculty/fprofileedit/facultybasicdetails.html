@@ -1,0 +1,101 @@
+{%extends "base/facultybase.html"%}
+{%block title%}Details{%endblock title%}
+{%block content%}
+
+<div class="jumbotron">
+    <div class="d-flex justify-content-between ">
+        <a class="btn btn-success my-2" href="{%url 'facultydetails' %}">Back</a>
+        <h1>Update Faculty Profile</h1>
+    </div>
+</div>
+
+<!-- <a href="{% url 'mainprofile' %}">BACK</a> -->
+<div class="card py-5">
+    <div class="d-flex align-items-center  text-black card border-0 rounded-3">
+        <div class="card-body p-sm-1 mx-sm-1 p-md-5 border border-dark col-lg-6 col-sm-12">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'facultydetailsedit' %}">{% csrf_token %}
+                <div class="form-outline mb-4">
+                    <img src="/media/{{ form.profile_pic }}" width="100px" alt="Profile picture">
+                    <label class="form-label">profile_pic</label>
+                        <input {% if form.profile_pic %} value="{{form.profile_pic}}" {% endif %} type="file" name="profile_pic" class="form-control"
+                        placeholder="profile_pic" />
+                    </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label">Full Name</label>
+                        <input {% if form.fullname %} value="{{form.fullname}}" {% endif %} type="text" name="fullname" class="form-control"
+                        placeholder="Full Name" />
+                    </div>
+                    <!-- <div class="form-outline mb-4">
+                        <label class="form-label">Roll Number</label>
+                        <input disabled {% if form.roll %} value="{{form.roll}}" {% endif %} type="text" name="roll" class="form-control"
+                            placeholder="Roll Number" />
+                    </div> -->
+                        <div class="form-outline mb-4">
+                        <label class="form-label">Email</label>
+
+                        <input disabled {% if form.email %} value="{{form.email}}" {% endif %} type="email" name="email" class="form-control"
+                            placeholder="email@gmail.com" />
+
+                        </div>                                       
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select class="form-control" name="department" disabled {% if form.department %} value="{{form.department}}" {% endif %}>
+                            <option value="cse">CSE</option>
+                            <option value="ece">ECE</option>
+                            <option value="eee">EEE</option>
+                            <option value="mech">MECH</option>
+                            <option value="civil">CIVIL</option>
+                            <option value="met">MET</option>
+                            <option value="it">IT</option>
+                            </select>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>Year</label>
+                            <select class="form-control" name="year" {% if form.year %} value={{form.year}} {% endif %} required>
+                                <option value="1">I</option>
+                                <option value="2">II</option>
+                                <option value="3">III</option>
+                                <option value="4">IV</option>
+                            </select>
+                        </div> -->
+                            <div class="form-outline mb-4">
+                            <label class="form-label">Phone Number</label>
+                            <input {% if form.phone %} value="{{form.phone}}" {% endif %} type="tel" name="phone" class="form-control" pattern="[0-9]{10}" placeholder="phone number" /> 
+                            </div>
+                            <div class="form-outline mb-4">
+                            <label class="form-label">About Me</label>
+                            <textarea id="exampleTextarea" maxlength="1000" rows="4" name="aboutme" class="form-control"  placeholder="About Me" onkeyup="checkCharLimit()">{% if form.aboutme %}{{form.aboutme}}{% endif %}</textarea>
+                            </div>
+                            <div id="error-message" style="color:red;"></div>
+                            <div class="text-center pt-1 mb-5 pb-1">
+                            <button type="submit" class="btn btn-light btn-block fa-lg mb-3 btn-outline-success" type="submit">Save</button>       
+                        </div>
+                        {% if messages %}
+                        <ul class=" p-0 m-0 messages d-flex flex-column justify-content-center align-items-center">
+                            {% for message in messages %}
+                            <p {% if message.tags %} class="text-center w-100 pl-3 mx-auto my-auto alert-{{ message.tags }}" {% endif %}> {{ message }} </p>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{% block scripts %}
+<script defer>
+    function checkCharLimit() {
+        var textarea = document.getElementById("exampleTextarea");
+        var charLimit = textarea.getAttribute("maxlength");
+        var charCount = textarea.value.length;
+        if (charCount > 950) {
+            document.getElementById("error-message").innerHTML = "character limit exceeded!";
+        } else {
+            document.getElementById("error-message").innerHTML = "";
+        }
+    }
+</script>
+{% endblock %}
+
+
+

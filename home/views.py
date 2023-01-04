@@ -454,13 +454,18 @@ def delete_entry(request, p , name):
     Entry=content_type.objects.get(id=p)
     if name=='cert':
         fname=Entry.certificate_file
+        inst=Entry.content_object
         if fname:
             logging.error(Entry.getDetails())
             logging.error(fname)
             Entry.certificate_file.storage.delete(fname.name)
-    if name=="exp" or name=="hon" or name=="pub" or name=="sch" :
-        cnt=Entry.cert_count
-        Entry.cert_count=cnt-1
+        cnt=inst.cert_count
+        inst.cert_count=cnt-1
+        inst.save()
+    # if name=="exp" or name=="hon" or name=="pub" or name=="sch" :
+    #     cnt=Entry.cert_count
+    #     Entry.cert_count=cnt-1
+    #     Entry.save()
     logging.error(Entry)
     entry = get_object_or_404(content_type, pk=p)
     entry.delete()

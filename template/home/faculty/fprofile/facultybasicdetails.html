@@ -1,0 +1,108 @@
+{% extends "base/facultybase.html" %}
+{% block title %}
+Faculty Profile Edit
+{% endblock %}
+{% block content %}
+<div id="details">
+
+    <div class="jumbotron bg-gradient-light text-dark">
+        <div class="d-flex justify-content-between ">
+            <a class="btn btn-success my-2" href="{%url 'facultymainprofile' %}">Back</a>
+            <h1>Profile Page</h1>            
+            <!-- <a class="btn btn-success my-2 " href="{%url 'experienceadd' %}">Add</a> -->
+        </div>
+    </div>
+
+<div class=" row  my-5">
+<div class="card col-md-4">
+    <div class="card-body">
+        <div class="d-flex flex-column align-items-center text-center">
+            <img src="/media/{{ form.profile_pic }}" alt="Admin" class="rounded-circle"
+                width="150px" height="150px" style="object-fit: contain;">
+            <div class="mt-3">
+                <h4>{{form.fullname}}</h4>
+                <!-- <p class="text-secondary mb-1">{{form.roll}}</p> -->
+                <p class="text-muted font-size-sm">{{form.department}}</p>
+                <!-- <button class="btn btn-primary">Follow</button>
+                <button class="btn btn-outline-primary">Message</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.fullname}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.email}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Phone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.phone}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Department</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.department}}
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Year</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.year}}
+                </div>
+            </div> -->
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">About Me</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{form.aboutme}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">College</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    JNTU-GV
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn btn-info " 
+                        href="{% url 'facultydetailsedit'  %}">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

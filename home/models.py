@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.core.validators import FileExtensionValidator
 from django.contrib.contenttypes.fields import GenericRelation
-from datetime import datetime
 # from .models import Certificates
 
 
