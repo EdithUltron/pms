@@ -1,10 +1,12 @@
 from django.contrib import admin
 from .models import Certificates,Experience,Education,Skills,Projects,Awards,Publications,Scholarships,Activities,Links,Additional
+from .facultymodels import FacultyEducation
 # Register your models here.
 
 admin.site.register(Certificates)
 admin.site.register(Experience)
 admin.site.register(Education)
+admin.site.register(FacultyEducation)
 admin.site.register(Skills)
 admin.site.register(Projects)
 admin.site.register(Awards)

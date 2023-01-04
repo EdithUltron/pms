@@ -12,13 +12,29 @@ from django.shortcuts import get_object_or_404
 import json
 from django.contrib.contenttypes.models import ContentType
 
+def f_login(func):
+    @wraps(func)
+    def wrapper_func(request,*args, **kwargs):
+        # logging.error(kwargs)
+        # logging.error(args)
+        # logging.error(kwargs.get("name",None))
+        # logging.error("hello")
+        if request.session.get("isflogin"):
+            return func(request, *args,**kwargs)
+        else:
+            return redirect("/facultylogin")
+    return wrapper_func
+
+@f_login
 def facultyhome(request):
-    facultylogout(request)
+    # facultylogout(request)
     return render(request,"home/faculty/facultyhome.html")
 
+@f_login
 def facultymainprofile(request):
     return render(request,"home/faculty/facultymainprofile.html")
 
+@f_login
 def facultydetails(request):
     id=request.session.get("id")
     user=FacultyLogin.objects.get(id=id)
@@ -26,6 +42,7 @@ def facultydetails(request):
     logging.error(context)
     return render(request,"home/faculty/fprofile/facultybasicdetails.html",{"form":context})
 
+@f_login
 def facultydetailsedit(request):
     context={}
     id=request.session.get("id")
@@ -48,13 +65,8 @@ def facultydetailsedit(request):
 
     return render(request,'home/faculty/fprofileedit/facultybasicdetails.html',{"form":context})
 
+@f_login
 def facultyeducation(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        p = data['id']
-        logging.error(p)
-        return delete_entry(request,p)
-
     id=request.session.get("id")
     user=FacultyLogin.objects.get(id=id)
     context=user.get_data()["data"]
@@ -69,6 +81,7 @@ def facultyeducation(request):
     logging.error(form)
     return render(request, 'home/faculty/fprofile/education.html', {'form': form})
 
+@f_login
 def facultyeducationadd(request):
     id=request.session.get("id")
     user=FacultyLogin.objects.get(id=id)
@@ -92,6 +105,7 @@ def facultyeducationadd(request):
         form = EducationForm()
     return render(request, 'home/faculty/fprofileedit/education.html', {'form': form})
 
+@f_login
 def facultyeducationedit(request,id):
     exp=FacultyEducation.objects.get(id=int(id))
 
@@ -107,6 +121,7 @@ def facultyeducationedit(request,id):
         form = EducationForm(instance=exp)
     return render(request, 'home/faculty/fprofileedit/education.html', {'form': form})
 
+@f_login
 def delete_entry(request, p , name):
     logging.error(p)
     logging.error(name)
@@ -135,14 +150,18 @@ def delete_entry(request, p , name):
     Entry=content_type.objects.get(id=p)
     if name=='cert':
         fname=Entry.certificate_file
+        inst=Entry.content_object
         if fname:
             logging.error(Entry.getDetails())
             logging.error(fname)
             Entry.certificate_file.storage.delete(fname.name)
-    if name=="exp" or name=="hon" or name=="pub" or name=="sch" or name== "edu":
-        cnt=Entry.cert_count
-        Entry.cert_count=cnt-1
-        Entry.save()
+        cnt=inst.cert_count
+        inst.cert_count=cnt-1
+        inst.save()
+    # if name=="exp" or name=="hon" or name=="pub" or name=="sch" or name== "edu":
+    #     cnt=Entry.cert_count
+    #     Entry.cert_count=cnt-1
+    #     Entry.save()
     logging.error(Entry)
     entry = get_object_or_404(content_type, pk=p)
     entry.delete()
